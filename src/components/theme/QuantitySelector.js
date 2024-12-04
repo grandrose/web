@@ -16,17 +16,17 @@ export const QuantitySelector = ({ initial = 1, onChange }) => {
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 border border-cream rounded-full">
       <button
         onClick={handleDecrement}
-        className="w-8 h-8 flex items-center justify-center border border-white rounded-full text-white hover:bg-gray-700"
+        className="w-8 h-8 flex items-center justify-center rounded-full text-cream hover:bg-cream hover:text-charcoal"
       >
         -
       </button>
-      <span>{quantity}</span>
+      <p className="w-8 text-center">{quantity}</p>
       <button
         onClick={handleIncrement}
-        className="w-8 h-8 flex items-center justify-center border border-white rounded-full text-white hover:bg-gray-700"
+        className="w-8 h-8 flex items-center justify-center rounded-full text-cream hover:bg-cream hover:text-charcoal"
       >
         +
       </button>
