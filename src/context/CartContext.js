@@ -31,6 +31,21 @@ export const CartProvider = ({ children }) => {
     initializeCart();
   }, []);
 
+  const fetchCart = async () => {
+    const cartId = localStorage.getItem("shopify_cart_id");
+    if (!cartId) return;
+
+    try {
+      setIsLoading(true);
+      const updatedCart = await shopifyClient.checkout.fetch(cartId);
+      setCart(updatedCart);
+    } catch (error) {
+      console.error("Failed to fetch cart:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const addToCart = async (variantId, quantity = 1) => {
     let cartId = localStorage.getItem("shopify_cart_id");
 
@@ -107,7 +122,7 @@ export const CartProvider = ({ children }) => {
     setIsLoading(false);
   };
 
-  const toggleCart = async () => {
+  const toggleCart = () => {
     setIsOpen(!isOpen);
   };
 
@@ -116,6 +131,7 @@ export const CartProvider = ({ children }) => {
       value={{
         cart,
         isLoading,
+        fetchCart,
         addToCart,
         removeFromCart,
         updateCartItem,
