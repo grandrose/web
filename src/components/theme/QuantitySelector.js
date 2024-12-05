@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useCart } from "../../context/CartContext";
 
-export const QuantitySelector = ({ initial = 1, variant = "dark", itemID }) => {
+export const QuantitySelector = ({
+  initial = 1,
+  variant = "dark",
+  itemID,
+  disabled = false,
+}) => {
   const [quantity, setQuantity] = useState(initial);
   const { updateCartItem, removeFromCart } = useCart();
 
@@ -15,8 +20,10 @@ export const QuantitySelector = ({ initial = 1, variant = "dark", itemID }) => {
   };
 
   const handleIncrement = () => {
-    setQuantity(quantity + 1);
-    updateCartItem(itemID, quantity + 1);
+    if (!disabled) {
+      setQuantity(quantity + 1);
+      updateCartItem(itemID, quantity + 1);
+    }
   };
 
   const themedStyles = `${
@@ -29,16 +36,26 @@ export const QuantitySelector = ({ initial = 1, variant = "dark", itemID }) => {
     <div
       className={`flex items-center justify-center w-fit border rounded-full ${themedStyles}`}
     >
+      {/* Decrement Button */}
       <button
         onClick={handleDecrement}
         className={`w-8 h-8 flex items-center justify-center rounded-full hover:bg-cream hover:text-charcoal ${themedStyles}`}
       >
         -
       </button>
+
+      {/* Quantity Display */}
       <p className="w-12 text-center mx-2 font-extrabold">{quantity}</p>
+
+      {/* Increment Button */}
       <button
         onClick={handleIncrement}
-        className={`w-8 h-8 flex items-center justify-center rounded-full hover:bg-cream hover:text-charcoal ${themedStyles}`}
+        disabled={disabled} // Disable when `disabled` is true
+        className={`w-8 h-8 flex items-center justify-center rounded-full ${
+          disabled
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-cream hover:text-charcoal"
+        } ${themedStyles}`}
       >
         +
       </button>

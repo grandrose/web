@@ -12,7 +12,7 @@ export const ItemCard = ({
   imageUrl,
 }) => {
   // This is to parse the int from the variant title. eg; 4-PACK
-  const packNumber = parseInt(variant.match(/\d+/)[0], 10);
+  const packNumber = parseInt(variant.title.match(/\d+/)[0], 10);
   const { removeFromCart } = useCart();
 
   return (
@@ -46,7 +46,12 @@ export const ItemCard = ({
 
       <div className="flex flex-col justify-between items-end ml-4">
         <p className="text-charcoal text-sm">{packNumber}/PK</p>
-        <QuantitySelector initial={quantity} itemID={id} />
+        {!variant.available && <p className="text-[#8b0d0d]">out of stock</p>}
+        <QuantitySelector
+          initial={quantity}
+          itemID={id}
+          disabled={!variant.available}
+        />
       </div>
     </div>
   );
