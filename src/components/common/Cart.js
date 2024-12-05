@@ -4,7 +4,7 @@ import { useCart } from "../../context/CartContext";
 import { CoreButton, ItemCard } from "../theme";
 
 export const Cart = ({ isModalOpen, toggleModal }) => {
-  const { cart, updateCartItem, removeFromCart } = useCart();
+  const { cart, updateCartItem, removeFromCart, fetchCart } = useCart();
   const cartRef = useRef(null);
 
   useEffect(() => {
@@ -23,6 +23,12 @@ export const Cart = ({ isModalOpen, toggleModal }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isModalOpen, toggleModal]);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      fetchCart();
+    }
+  }, [isModalOpen, fetchCart]);
 
   const handleCheckout = () => {
     if (cart?.webUrl) {
@@ -56,26 +62,27 @@ export const Cart = ({ isModalOpen, toggleModal }) => {
 
                 <div className="flex flex-col gap-4 mb-6">
                   {cart.lineItems.map((item) => (
-                    <ItemCard
-                      key={item.id}
-                      title={item.title}
-                      subtitle="2.5mg THC"
-                      price={item.variant.price.amount}
-                      quantity={item.quantity}
-                      variant={item.variant.title}
-                      imageUrl={item.variant.image?.src || null}
-                      id={item.id}
-                      onRemove={() => removeFromCart(item.id)}
-                      onQuantityChange={(quantity) =>
-                        updateCartItem(item.id, quantity)
-                      }
-                    />
+                    <div key={item.id}>
+                      <ItemCard
+                        title={item.title}
+                        subtitle="2.5mg THC"
+                        price={item.variant.price.amount}
+                        quantity={item.quantity}
+                        variant={item.variant}
+                        imageUrl={item.variant.image?.src || null}
+                        id={item.id}
+                        onRemove={() => removeFromCart(item.id)}
+                        onQuantityChange={(quantity) =>
+                          updateCartItem(item.id, quantity)
+                        }
+                      />
+                    </div>
                   ))}
                 </div>
 
                 <div className="border-t border-charcoal pt-4">
                   <div className="flex justify-between items-center mb-4">
-                    <p className="text-sm font-semibold uppercase">total</p>
+                    <p className="text-sm font-semibold">total</p>
                     <p className="text-lg font-bold">
                       ${cart.totalPrice.amount || 0}
                     </p>
