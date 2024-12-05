@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import {
-  Button,
-  CoreButton,
-  ContentDropdown,
-  OptionDropdown,
-  EmailSubmission,
-  ItemCard,
-  QuantitySelector,
-} from "../components/theme";
 import { useNavigate } from "react-router-dom";
 import { Cart } from "../components/common";
+import {
+  Button,
+  ContentDropdown,
+  CoreButton,
+  EmailSubmission,
+  OptionDropdown,
+  QuantitySelector,
+} from "../components/theme";
 import { useCart } from "../context/CartContext";
 
 export const Playground = () => {
   const navigate = useNavigate();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { addToCart, removeFromCart, cart } = useCart(); // Access cart context functions and state
-  const [mockItemId, setMockItemId] = useState(1); // For unique mock item IDs
+  const { addToCart, removeFromCart, clearCart } = useCart();
+  const [mockItemId, setMockItemId] = useState(1);
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -28,10 +27,10 @@ export const Playground = () => {
 
   const mockProduct = {
     id: mockItemId,
-    variantId: `gid://shopify/ProductVariant/1234567890`, // Use a realistic global ID format
+    variantId: `gid://shopify/ProductVariant/1234567890`,
     title: "bloom",
     variant: {
-      id: `gid://shopify/ProductVariant/1234567890`, // Update variant ID to use the same realistic format
+      id: `gid://shopify/ProductVariant/1234567890`,
       title: "2.5mg THC",
       price: 34.99,
       image: {
@@ -44,7 +43,6 @@ export const Playground = () => {
   const addItemToCart = () => {
     addToCart(mockProduct.variant.id, mockProduct.quantity);
     setMockItemId((prev) => prev + 1);
-    console.log(cart);
   };
 
   const removeMockItemFromCart = () => {
@@ -111,8 +109,11 @@ export const Playground = () => {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Cart Management</h2>
         <div className="flex space-x-4">
-          <Button variant="default" onClick={toggleCart} className="mr-[50px]">
+          <Button variant="default" onClick={toggleCart}>
             open cart
+          </Button>
+          <Button variant="default" onClick={clearCart}>
+            clear cart
           </Button>
           <Button variant="default" onClick={addItemToCart}>
             Add Mock Item to Cart
@@ -141,25 +142,13 @@ export const Playground = () => {
       </section>
       <hr className="my-8 border-cream opacity-50" />
 
-      {/* Item Card */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Item Card</h2>
-        <ItemCard
-          title="bloom"
-          subtitle="2.5mg THC"
-          price="109.99"
-          quantity="32"
-          imageUrl={null}
-        />
-      </section>
-      <hr className="my-8 border-cream opacity-50" />
-
       {/* Quantity Selector */}
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Quantity Selector</h2>
         <QuantitySelector
           initial={1}
           onChange={(quantity) => console.log("Quantity changed:", quantity)}
+          variant="light"
         />
       </section>
     </div>
