@@ -32,8 +32,6 @@ export const Button = ({
       : variants[variant]
   } ${className}`;
 
-  isSelected && console.log("appliedStyles", appliedStyles);
-
   return (
     <button
       onClick={!disabled ? onClick : undefined}
