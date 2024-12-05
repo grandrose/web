@@ -1,11 +1,12 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import shopifyClient from "../lib/shopifyClient"; // Make sure this points to your Shopify client setup
+import shopifyClient from "../lib/shopifyClient";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const initializeCart = async () => {
@@ -30,20 +31,33 @@ export const CartProvider = ({ children }) => {
     initializeCart();
   }, []);
 
-  const addToCart = async (variantId, quantity) => {
-    setIsLoading(true);
+  const addToCart = async (variantId, quantity = 1) => {
+    let cartId = localStorage.getItem("shopify_cart_id");
+
+    if (!cartId) {
+      cartId = cart.id;
+      localStorage.setItem("shopify_cart_id", cartId);
+    }
+
+    const lineItemsToAdd = [
+      {
+        variantId: String(variantId),
+        quantity: Number(quantity),
+      },
+    ];
+
     try {
-      const updatedCart = await shopifyClient.checkout.addLineItems(cart.id, [
-        {
-          variantId,
-          quantity,
-        },
-      ]);
+      setIsLoading(true);
+      const updatedCart = await shopifyClient.checkout.addLineItems(
+        cartId,
+        lineItemsToAdd
+      );
       setCart(updatedCart);
     } catch (error) {
       console.error("Failed to add item to cart:", error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const removeFromCart = async (lineItemId) => {
@@ -93,6 +107,10 @@ export const CartProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  const toggleCart = async () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -102,6 +120,8 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateCartItem,
         clearCart,
+        toggleCart,
+        isOpen,
       }}
     >
       {children}
