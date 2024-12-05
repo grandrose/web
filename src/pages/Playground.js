@@ -6,6 +6,7 @@ import {
   ContentDropdown,
   CoreButton,
   EmailSubmission,
+  Marquee,
   OptionDropdown,
   QuantitySelector,
 } from "../components/theme";
@@ -151,6 +152,10 @@ export const Playground = () => {
           variant="light"
         />
       </section>
+
+      {/* Marquee */}
+      <h2 className="text-2xl font-semibold mb-4">Quantity Selector</h2>
+      <Marquee />
     </div>
   );
 };
