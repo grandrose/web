@@ -1,32 +1,44 @@
 import React, { useState } from "react";
+import { useCart } from "../../context/CartContext";
 
-export const QuantitySelector = ({ initial = 1, onChange }) => {
+export const QuantitySelector = ({ initial = 1, variant = "dark", itemID }) => {
   const [quantity, setQuantity] = useState(initial);
+  const { updateCartItem, removeFromCart } = useCart();
 
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
-      if (onChange) onChange(quantity - 1);
+      updateCartItem(itemID, quantity - 1);
+    } else {
+      removeFromCart(itemID);
     }
   };
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
-    if (onChange) onChange(quantity + 1);
+    updateCartItem(itemID, quantity + 1);
   };
 
+  const themedStyles = `${
+    variant === "dark"
+      ? "border-charcoal text-charcoal"
+      : "border-cream text-cream"
+  }`;
+
   return (
-    <div className="flex items-center space-x-2 border border-cream rounded-full">
+    <div
+      className={`flex items-center justify-center w-fit border rounded-full ${themedStyles}`}
+    >
       <button
         onClick={handleDecrement}
-        className="w-8 h-8 flex items-center justify-center rounded-full text-cream hover:bg-cream hover:text-charcoal"
+        className={`w-8 h-8 flex items-center justify-center rounded-full hover:bg-cream hover:text-charcoal ${themedStyles}`}
       >
         -
       </button>
-      <p className="w-8 text-center">{quantity}</p>
+      <p className="w-12 text-center mx-2 font-extrabold">{quantity}</p>
       <button
         onClick={handleIncrement}
-        className="w-8 h-8 flex items-center justify-center rounded-full text-cream hover:bg-cream hover:text-charcoal"
+        className={`w-8 h-8 flex items-center justify-center rounded-full hover:bg-cream hover:text-charcoal ${themedStyles}`}
       >
         +
       </button>
