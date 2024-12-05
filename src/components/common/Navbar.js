@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { Button } from "../theme";
+import React from "react";
 import { FaUser } from "react-icons/fa";
-import { Cart } from "./Cart";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { Button } from "../theme";
+import { Cart } from "./Cart";
 
 export const Navbar = () => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  // const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate();
-
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
+  const { isOpen, toggleCart } = useCart();
+  // const toggleCart = () => {
+  //   setIsCartOpen(!isCartOpen);
+  // };
 
   return (
     <>
@@ -60,7 +61,7 @@ export const Navbar = () => {
       </nav>
 
       {/* Cart Modal */}
-      <Cart isModalOpen={isCartOpen} toggleModal={toggleCart} />
+      <Cart isModalOpen={isOpen} toggleModal={toggleCart} />
     </>
   );
 };
