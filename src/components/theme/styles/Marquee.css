@@ -1,5 +1,5 @@
 .marquee {
-    overflow: hidden; /* Hide overflowing content */
+    overflow: hidden;
     position: relative;
     width: 100%;
   }
@@ -13,12 +13,12 @@
     animation-iteration-count: infinite;
   }
 
-  /* For animation moving to the left (default) */
+
   .marquee-track-left {
     animation-name: marquee-left;
   }
 
-  /* For animation moving to the right */
+
   .marquee-track-right {
     animation-name: marquee-right;
   }
@@ -30,7 +30,7 @@
     font-weight: 700;
   }
 
-  /* Keyframes for left direction */
+
   @keyframes marquee-left {
     0% {
       transform: translateX(0);
@@ -40,7 +40,7 @@
     }
   }
 
-  /* Keyframes for right direction */
+
   @keyframes marquee-right {
     0% {
       transform: translateX(-50%);
