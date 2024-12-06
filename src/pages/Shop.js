@@ -5,6 +5,7 @@ import IconGarnet from "../assets/icons/IconGarnet";
 import { Button, ContentDropdown, Section } from "../components/theme";
 import { useCart } from "../context/CartContext";
 import { fetchProductByHandle } from "../lib";
+import VeganIcon from "../assets/icons/vegan-cream.svg"; // Import as image
 
 export const Shop = () => {
   const { addToCart, toggleCart } = useCart();
@@ -110,7 +111,7 @@ export const Shop = () => {
 
 const Dietary = () => {
   const dietaryItems = [
-    { label: "Vegan", Icon: null },
+    { label: "Vegan", Icon: VeganIcon },
     { label: "Non-GMO", Icon: null },
     { label: "Gluten Free", Icon: null },
     { label: "Dairy Free", Icon: null },
@@ -130,7 +131,9 @@ const DietaryItem = ({ label, Icon }) => {
     <div className="text-center w-24">
       <p className="mb-2">{label}</p>
       <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto flex items-center justify-center">
-        {Icon ? <Icon /> : null}
+        {Icon ? (
+          <img src={Icon} alt={`${label} icon`} className="w-8 h-8" />
+        ) : null}
       </div>
     </div>
   );
