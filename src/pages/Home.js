@@ -12,7 +12,7 @@ export const Home = () => {
     navigate("/");
   };
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-charcoal text-cream py-12">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-charcoal text-cream pt-12">
       <header className="text-center mb-4">
         <p className="text-lg mb-6">Return to the dev home</p>
         <Button onClick={handleNavigateDevHome} variant="default">

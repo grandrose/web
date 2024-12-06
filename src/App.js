@@ -7,8 +7,8 @@ import {
 import "./App.css";
 import { Footer, Navbar } from "./components/common";
 import { CartProvider } from "./context/CartContext";
-import { DevHome, Home, Playground, Shop, About, Locate } from "./pages";
 import { CustomerProvider } from "./context/CustomerContext";
+import { ComingSoon, DevHome, Home, Playground, Shop } from "./pages";
 
 function App() {
   return (
@@ -20,8 +20,9 @@ function App() {
               <Route path="/" element={<DevHome />} />
               <Route path="/home" element={<Home />} />
               <Route path="/shop" element={<Shop />} />
-              <Route path="/locate" element={<Locate />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/locate" element={<ComingSoon />} />
+              <Route path="/about" element={<ComingSoon />} />
+              <Route path="/profile" element={<ComingSoon />} />
               <Route path="/playground" element={<Playground />} />
             </Routes>
           </Layout>

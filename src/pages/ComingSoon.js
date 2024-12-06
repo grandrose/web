@@ -1,8 +1,6 @@
 import React from "react";
-import { Section } from "../components/theme";
-import gradiant from "../assets/backgrounds/gr-core-gradient.png";
 
-export const About = () => {
+export const ComingSoon = () => {
   return (
     <Section backgroundImage={gradiant}>
       <div className="h-[49.5vh] flex items-center justify-center">
