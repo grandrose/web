@@ -7,22 +7,27 @@ import {
 import "./App.css";
 import { Footer, Navbar } from "./components/common";
 import { CartProvider } from "./context/CartContext";
-import { DevHome, Home, Playground, Shop } from "./pages";
+import { DevHome, Home, Playground, Shop, About, Locate } from "./pages";
+import { CustomerProvider } from "./context/CustomerContext";
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<DevHome />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/playground" element={<Playground />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </CartProvider>
+    <CustomerProvider>
+      <CartProvider>
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<DevHome />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/locate" element={<Locate />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/playground" element={<Playground />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </CartProvider>
+    </CustomerProvider>
   );
 }
 
