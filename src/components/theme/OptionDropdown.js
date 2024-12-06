@@ -34,14 +34,3 @@ export const OptionDropdown = ({
     </div>
   );
 };
-
-/*
-EXAMPLE USAGE
-
-<Dropdown
-  label="Ingredients"
-  options={["Option 1", "Option 2", "Option 3"]}
-  onSelect={(option) => console.log("Selected:", option)}
-/>
-
-*/

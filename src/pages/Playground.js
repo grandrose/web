@@ -63,26 +63,14 @@ export const Playground = () => {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Buttons</h2>
         <div className="flex space-x-4">
-          <Button onClick={() => console.log("Default Button clicked")}>
-            Default Button
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => console.log("Outline Button clicked")}
-          >
+          <Button onClick={() => null}>Default Button</Button>
+          <Button variant="outline" onClick={() => null}>
             Outline Button
           </Button>
-          <Button
-            variant="outline"
-            disabled={true}
-            onClick={() => console.log("Outline Button clicked")}
-          >
+          <Button variant="outline" disabled={true} onClick={() => null}>
             Disabled
           </Button>
-          <CoreButton
-            label="Core Button"
-            onClick={() => console.log("Core Button clicked")}
-          />
+          <CoreButton label="Core Button" onClick={() => null} />
         </div>
       </section>
       <hr className="my-8 border-cream opacity-50" />
@@ -132,7 +120,7 @@ export const Playground = () => {
         <OptionDropdown
           label="THE 30-DAY HERO PLAN"
           options={["Option 1", "Option 2", "Option 3"]}
-          onSelect={(option) => console.log("Selected:", option)}
+          onSelect={(option) => null}
         />
       </section>
 
@@ -148,10 +136,11 @@ export const Playground = () => {
         <h2 className="text-2xl font-semibold mb-4">Quantity Selector</h2>
         <QuantitySelector
           initial={1}
-          onChange={(quantity) => console.log("Quantity changed:", quantity)}
+          onChange={(quantity) => null}
           variant="light"
         />
       </section>
+      <hr className="my-8 border-cream opacity-50" />
 
       {/* Marquee */}
       <h2 className="text-2xl font-semibold mb-4">Quantity Selector</h2>

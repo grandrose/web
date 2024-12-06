@@ -5,14 +5,14 @@ export const Footer = () => {
   return (
     <footer className="bg-charcoal text-cream sticky bottom-0 mt-10">
       <div className=" w-[calc(100%-200px)] mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Left Section */}
         <div className="text-center md:text-left">
           <h4 className="text-lg font-bold mb-2">Want exclusive discounts?</h4>
+          {/* TODO */}
           <EmailSubmission
             placeholder="your@email.com"
             showButton={false}
             background="light"
-            onSubmit={(email) => console.log("Submitted email:", email)}
+            onSubmit={(email) => null}
           />
           <div className="mt-4">
             <p className="text-sm">Grand Rose</p>
@@ -21,10 +21,8 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Center Section (Blank) */}
         <div></div>
 
-        {/* Right Section */}
         <div className="text-sm text-center md:text-right space-y-2 ">
           <p className="hover:text-rose hover:cursor-pointer transition-all duration-200">
             Room for legal disclaimers, warnings, and product access

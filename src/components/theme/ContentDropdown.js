@@ -19,7 +19,7 @@ export const ContentDropdown = () => {
           className={`w-full px-4 py-2 flex justify-between items-center bg-charcoal text-cream rounded-t-[18px] transition-all duration-300 ease-in-out border-2 border-cream shadow-lg ${
             isOpen ? "rounded-b-none" : "rounded-[18px]"
           }`}
-          style={{ borderBottomLeftRadius: isOpen ? "0" : "0.375rem" }}
+          // style={{ borderBottomLeftRadius: isOpen ? "0" : "0.375rem" }}
         >
           <span>INGREDIENTS & NUTRITION FACTS</span>
           <svg

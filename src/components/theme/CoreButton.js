@@ -6,7 +6,7 @@ export const CoreButton = ({ label, onClick, variant = "dark", className }) => {
       ? "bg-charcoal text-cream border-charcoal hover:bg-cream hover:text-charcoal"
       : "bg-cream text-charcoal border-cream hover:bg-charcoal hover:text-cream"
   }`;
-  console.log(variant, themedStyles);
+
   return (
     <button
       onClick={onClick}

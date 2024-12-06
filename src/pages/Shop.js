@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import gradiant from "../assets/backgrounds/gr-core-gradient.png";
 import IconGarnet from "../assets/icons/IconGarnet";
-import { Button, ContentDropdown } from "../components/theme";
+import { Button, ContentDropdown, Section } from "../components/theme";
 import { useCart } from "../context/CartContext";
 import { fetchProductByHandle } from "../lib";
 
@@ -65,6 +66,7 @@ export const Shop = () => {
               protein and 2.5mg infused thc into a one-of-a-kind beverage ready
               for your active routine.
             </p>
+            <hr className="my-8 border-cream opacity-50" />
             <div className="flex gap-4 mb-8">
               {productData.variants.map((variant) => (
                 <Button
@@ -79,6 +81,7 @@ export const Shop = () => {
                 </Button>
               ))}
             </div>
+            <hr className="my-8 border-cream opacity-50" />
             <p className="text-md mb-4">12 fl oz / 355 mL per can</p>
             <p className="text-md mb-8">
               Shipping to Minnesota, Colorado, Illinois, California
@@ -100,6 +103,7 @@ export const Shop = () => {
           <NutritionFacts />
         </section>
       </div>
+      <Section backgroundImage={gradiant} />
     </>
   );
 };
@@ -109,23 +113,23 @@ const Dietary = () => {
     <div className="flex gap-6 mb-8 justify-center">
       <div className="text-center">
         <p className="mb-2">Vegan</p>
-        <div className="w-6 h-6 border-2 border-cream rounded-full mx-auto"></div>
+        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
       </div>
       <div className="text-center">
         <p className="mb-2">Non-GMO</p>
-        <div className="w-6 h-6 border-2 border-cream rounded-full mx-auto"></div>
+        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
       </div>
       <div className="text-center">
         <p className="mb-2">Gluten Free</p>
-        <div className="w-6 h-6 border-2 border-cream rounded-full mx-auto"></div>
+        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
       </div>
       <div className="text-center">
         <p className="mb-2">Dairy Free</p>
-        <div className="w-6 h-6 border-2 border-cream rounded-full mx-auto"></div>
+        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
       </div>
       <div className="text-center">
         <p className="mb-2">Sugar Free</p>
-        <div className="w-6 h-6 border-2 border-cream rounded-full mx-auto"></div>
+        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
       </div>
     </div>
   );
