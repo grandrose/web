@@ -1,4 +1,6 @@
 import React from "react";
+import gradiant from "../assets/backgrounds/gr-core-gradient.png";
+import { Section } from "../components/theme";
 
 export const ComingSoon = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import { Section } from "../components/theme";
 import gradiant from "../assets/backgrounds/gr-core-gradient.png";
+import { Section } from "../components/theme";
 
 export const About = () => {
   return (
