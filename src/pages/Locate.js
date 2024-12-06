@@ -2,7 +2,7 @@ import React from "react";
 import { Section } from "../components/theme";
 import gradiant from "../assets/backgrounds/gr-core-gradient.png";
 
-export const About = () => {
+export const Locate = () => {
   return (
     <section className="min-h-full">
       <Section backgroundImage={gradiant}>
