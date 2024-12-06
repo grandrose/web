@@ -82,13 +82,13 @@ export const Playground = () => {
           <EmailSubmission
             placeholder="email with button"
             buttonLabel="Submit"
-            onSubmit={(email) => console.log("Submitted email:", email)}
+            onSubmit={(email) => null}
           />
           <EmailSubmission
             placeholder="email w/ no button"
             showButton={false}
             background="light"
-            onSubmit={(email) => console.log("Submitted email:", email)}
+            onSubmit={(email) => null}
           />
         </div>
       </section>
