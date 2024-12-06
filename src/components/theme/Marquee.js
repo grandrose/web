@@ -1,30 +1,10 @@
 import React from "react";
-import "./styles/Marquee.css";
+import Marquee from "react-fast-marquee";
 
-export const Marquee = ({
-  text = "PLANT POWERED PROTEIN",
-  speed = 20,
-  direction = "left",
-}) => {
+export const PPPMarquee = () => {
   return (
-    <section className="marquee">
-      <div
-        className={`marquee-track ${
-          direction === "right" ? "marquee-track-right" : "marquee-track-left"
-        }`}
-        style={{ animationDuration: `${speed}s` }}
-      >
-        {[...Array(15)].map((_, index) => (
-          <React.Fragment key={`first-${index}`}>
-            <p className="marquee-text">{text}</p>
-          </React.Fragment>
-        ))}
-        {[...Array(15)].map((_, index) => (
-          <React.Fragment key={`second-${index}`}>
-            <p className="marquee-text">{text}</p>
-          </React.Fragment>
-        ))}
-      </div>
-    </section>
+    <Marquee loop={0} autoFill>
+      <p className="text-[1.2vw] font-bold mx-4">PLANT POWERED PROTEIN</p>
+    </Marquee>
   );
 };

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import gradiant from "../assets/backgrounds/gr-core-gradient.png";
 import defaultCans from "../assets/temp/cans-small.png";
 import { VideoSection } from "../components/common";
-import { Button, Marquee, Section } from "../components/theme";
+import { Button, PPPMarquee, Section } from "../components/theme";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export const Home = () => {
       </header>
       <VideoSection />
       <section className="py-24">
-        <Marquee speed={60} />
+        <PPPMarquee />
       </section>
       <Hero />
       <Section backgroundImage={gradiant} />

@@ -109,27 +109,28 @@ export const Shop = () => {
 };
 
 const Dietary = () => {
+  const dietaryItems = [
+    { label: "Vegan", Icon: null },
+    { label: "Non-GMO", Icon: null },
+    { label: "Gluten Free", Icon: null },
+    { label: "Dairy Free", Icon: null },
+    { label: "Sugar Free", Icon: null },
+  ];
   return (
     <div className="flex gap-6 mb-8 justify-center">
-      <div className="text-center">
-        <p className="mb-2">Vegan</p>
-        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
-      </div>
-      <div className="text-center">
-        <p className="mb-2">Non-GMO</p>
-        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
-      </div>
-      <div className="text-center">
-        <p className="mb-2">Gluten Free</p>
-        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
-      </div>
-      <div className="text-center">
-        <p className="mb-2">Dairy Free</p>
-        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
-      </div>
-      <div className="text-center">
-        <p className="mb-2">Sugar Free</p>
-        <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto"></div>
+      {dietaryItems.map(({ label, Icon }) => (
+        <DietaryItem key={label} label={label} Icon={Icon} />
+      ))}
+    </div>
+  );
+};
+
+const DietaryItem = ({ label, Icon }) => {
+  return (
+    <div className="text-center w-24">
+      <p className="mb-2">{label}</p>
+      <div className="w-12 h-12 border-2 border-cream rounded-full mx-auto flex items-center justify-center">
+        {Icon ? <Icon /> : null}
       </div>
     </div>
   );

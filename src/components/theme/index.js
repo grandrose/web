@@ -3,7 +3,7 @@ export { ContentDropdown } from "./ContentDropdown";
 export { CoreButton } from "./CoreButton";
 export { EmailSubmission } from "./EmailSubmission";
 export { ItemCard } from "./ItemCard";
-export { Marquee } from "./Marquee";
+export { PPPMarquee } from "./Marquee";
 export { OptionDropdown } from "./OptionDropdown";
 export { QuantitySelector } from "./QuantitySelector";
 export { Section } from "./Section";

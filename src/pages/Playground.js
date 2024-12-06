@@ -6,7 +6,7 @@ import {
   ContentDropdown,
   CoreButton,
   EmailSubmission,
-  Marquee,
+  PPPMarquee,
   OptionDropdown,
   QuantitySelector,
 } from "../components/theme";
@@ -144,7 +144,7 @@ export const Playground = () => {
 
       {/* Marquee */}
       <h2 className="text-2xl font-semibold mb-4">Quantity Selector</h2>
-      <Marquee />
+      <PPPMarquee />
     </div>
   );
 };
