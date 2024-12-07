@@ -8,12 +8,19 @@ const CustomerContext = createContext();
 export const CustomerProvider = ({ children }) => {
   const [customer, setCustomer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const isLoggedIn = !!customer;
 
   useEffect(() => {
     const savedCustomer = localStorage.getItem("shopify_customer");
     if (savedCustomer) {
-      setCustomer(JSON.parse(savedCustomer));
+      const { accessToken } = JSON.parse(savedCustomer);
+      fetchCustomerDetails(accessToken)
+        .then((customerData) => {
+          setCustomer({ ...customerData, accessToken });
+        })
+        .catch((error) => {
+          console.error("Error fetching customer details:", error);
+          localStorage.removeItem("shopify_customer");
+        });
     }
   }, []);
 
@@ -37,22 +44,91 @@ export const CustomerProvider = ({ children }) => {
     }
   };
 
+  const fetchCustomerDetails = async (accessToken) => {
+    const query = `
+      query {
+        customer {
+          email
+          firstName
+          lastName
+          phone
+          addresses {
+            address1
+            city
+            country
+          }
+        }
+      }
+    `;
+    const response = await fetch(
+      `https://${process.env.REACT_APP_SHOPIFY_STORE_DOMAIN}/api/2023-10/graphql.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token":
+            process.env.REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ query }),
+      }
+    );
+    const result = await response.json();
+    if (result.errors) {
+      throw new Error(result.errors[0].message);
+    }
+    return result.data.customer;
+  };
+
   const login = async (email, password) => {
+    const url = `https://${process.env.REACT_APP_SHOPIFY_STORE_DOMAIN}/api/2023-10/graphql.json`;
+    const mutation = `
+      mutation customerAccessTokenCreate($email: String!, $password: String!) {
+        customerAccessTokenCreate(input: { email: $email, password: $password }) {
+          customerAccessToken {
+            accessToken
+            expiresAt
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+
     try {
-      setIsLoading(true);
-      const response = await shopifyClient.customerAccessToken.create({
-        email,
-        password,
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token":
+            process.env.REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+        },
+        body: JSON.stringify({
+          query: mutation,
+          variables: { email, password },
+        }),
       });
-      const accessToken = response.customerAccessToken.accessToken;
-      const customerData = await shopifyClient.customer.fetch(accessToken);
-      setCustomer(customerData);
-      localStorage.setItem("shopify_customer", JSON.stringify(customerData));
+
+      const result = await response.json();
+
+      // Handle Shopify user errors
+      const errors = result.data.customerAccessTokenCreate.userErrors;
+      if (errors && errors.length > 0) {
+        throw new Error(errors[0].message);
+      }
+
+      // Extract and return the access token
+      const accessToken =
+        result.data.customerAccessTokenCreate.customerAccessToken.accessToken;
+      const expiresAt =
+        result.data.customerAccessTokenCreate.customerAccessToken.expiresAt;
+      setCustomer({ accessToken: accessToken });
+      return { accessToken, expiresAt };
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error:", error.message);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -116,7 +192,6 @@ export const CustomerProvider = ({ children }) => {
     <CustomerContext.Provider
       value={{
         customer,
-        isLoggedIn,
         isLoading,
         signUp,
         login,
