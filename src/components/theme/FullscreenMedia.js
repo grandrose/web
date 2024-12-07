@@ -4,11 +4,10 @@ export const FullscreenMedia = ({
   assetType,
   src,
   alt = "",
-  overlayText = "", // New prop for center overlay text
+  overlayText = "",
   caption = "",
   className = "",
 }) => {
-  // Placeholder template when no source is provided
   const renderTemplate = () => (
     <div
       className="absolute inset-0 w-full h-full flex items-center justify-center text-cream"
@@ -18,7 +17,6 @@ export const FullscreenMedia = ({
 
   return (
     <div className={`relative w-screen h-screen overflow-hidden ${className}`}>
-      {/* Media */}
       {!src && renderTemplate()}
       {src && assetType === "photo" && (
         <img
@@ -48,7 +46,7 @@ export const FullscreenMedia = ({
       {/* Centered Overlay Text */}
       {overlayText && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-3xl text-white font-bold text-center px-4">
+          <p className="text-6xl text-cream font-medium text-center px-4">
             {overlayText}
           </p>
         </div>

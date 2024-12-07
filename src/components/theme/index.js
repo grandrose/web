@@ -5,6 +5,7 @@ export { EmailSubmission } from "./EmailSubmission";
 export { FullscreenMedia } from "./FullscreenMedia";
 export { ItemCard } from "./ItemCard";
 export { PPPMarquee } from "./Marquee";
+export { Media } from "./Media";
 export { OptionDropdown } from "./OptionDropdown";
 export { ProductGif } from "./ProductGif";
 export { QuantitySelector } from "./QuantitySelector";
