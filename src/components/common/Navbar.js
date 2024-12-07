@@ -6,29 +6,25 @@ import { Button } from "../theme";
 import { Cart } from "./Cart";
 import { Login } from "./Login";
 import { useCustomer } from "../../context/CustomerContext";
+import UserIcon from "../../assets/icons/gr-rose-user-icon.png";
 
 export const Navbar = () => {
-  // const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate();
   const { isOpen, toggleCart } = useCart();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const { isLoggedIn } = useCustomer;
+  const { customer } = useCustomer();
 
   const toggleLogin = () => {
     setIsLoginOpen(!isLoginOpen);
   };
 
   const profileOnClick = () => {
-    if (isLoggedIn) {
-      // TODO
-      // handle navigate to profile
+    if (customer) {
+      navigate("/profile");
     } else {
       toggleLogin();
     }
   };
-  // const toggleCart = () => {
-  //   setIsCartOpen(!isCartOpen);
-  // };
 
   return (
     <>
@@ -62,12 +58,18 @@ export const Navbar = () => {
           <Button variant="default" onClick={toggleCart} className="mr-[50px]">
             CART
           </Button>
+          {/* DEFAULT USER ICON */}
           <button
             onClick={profileOnClick}
-            className="bg-cream text-charcoal p-2 rounded-full hover:bg-transparent hover:text-cream border-2 hover:border-cream transition-all"
+            className="bg-cream text-charcoal w-10 h-10 flex items-center justify-center rounded-full hover:bg-transparent hover:text-cream border-2 hover:border-cream transition-all"
           >
-            <FaUser />
+            <FaUser size={20} />
           </button>
+          {/* <img
+            src={UserIcon}
+            className="max-w-[36px] max-h-[36px] hover:cursor-pointer"
+            onClick={profileOnClick}
+          /> */}
         </div>
       </nav>
 
