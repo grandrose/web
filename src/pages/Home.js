@@ -11,6 +11,7 @@ export const Home = () => {
   const handleNavigateDevHome = () => {
     navigate("/");
   };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-charcoal text-cream pt-12">
       <header className="text-center mb-4">
@@ -32,9 +33,8 @@ export const Home = () => {
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
-
-  const images = [defaultCans, defaultCans, defaultCans]; // Replace with actual image paths
-
+  // TODO -- Replace with actual image paths
+  const images = [defaultCans, defaultCans, defaultCans];
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
