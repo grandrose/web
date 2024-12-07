@@ -6,17 +6,11 @@ Welcome to the Grand Rose web repository! This is the codebase for the **Grand R
 
 ---
 
-## 🌟 Features
-
-- **Headless Shopify Integration**: Utilizes Shopify's Storefront API for a seamless shopping experience.
-- **React-Based Architecture**: Built with React to provide a fast, modern, and responsive user interface.
-- **Functional-Dose Beverage Focus**: Promotes an active and healthy lifestyle with cannabinoid-infused products.
-
----
-
 ## 🗈 Version
 
 **v0.1(beta)**
+
+---
 
 ### Included Pages
 
@@ -72,20 +66,24 @@ npm install
 
 Access the site at `http://localhost:3000`.
 
+---
+
 ## Project Structure
 
+```graphql
 grand-rose-web/
-├── public/ # Static assets
+├── public/               # Static assets
 ├── src/
-│ ├── assets/ # Images, icons, and other media
-│ ├── components/ # Reusable UI components
-│ ├── context/ # Context API for state management
-│ ├── pages/ # Individual page components
-│ ├── styles/ # Global and component-specific styles
-│ ├── App.js # Main application component
-│ ├── index.js # Entry point
-│ └── ... # Additional configuration and files
-└── README.md # Documentation
+│   ├── assets/           # Images, icons, and other media
+│   ├── components/       # Reusable UI components
+│   ├── context/          # Context API for state management
+│   ├── pages/            # Individual page components
+│   ├── styles/           # Global and component-specific styles
+│   ├── App.js            # Main application component
+│   ├── index.js          # Entry point
+│   └── ...               # Additional configuration and files
+└── README.md             # Documentation
+```
 
 ---
 
