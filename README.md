@@ -45,7 +45,7 @@ Welcome to the Grand Rose web repository! This is the codebase for the **Grand R
 1. Clone the repository:
    ```bash
    git clone https://github.com/grandrose/web.git
-   cd grand-rose-web
+   cd web
    npm install
    ```
 
@@ -77,11 +77,10 @@ grand-rose-web/
 │   ├── assets/           # Images, icons, and other media
 │   ├── components/       # Reusable UI components
 │   ├── context/          # Context API for state management
+│   ├── lib/              # Utilities for Shopify integration
 │   ├── pages/            # Individual page components
-│   ├── styles/           # Global and component-specific styles
 │   ├── App.js            # Main application component
 │   ├── index.js          # Entry point
-│   └── ...               # Additional configuration and files
 └── README.md             # Documentation
 ```
 
