@@ -1,0 +1,4 @@
+.marquee-text::selection {
+  background-color: #F8F1F1;
+  color: #0E0E0E;
+}

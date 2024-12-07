@@ -8,19 +8,18 @@ export const ContentDropdown = () => {
   };
 
   return (
-    <div className="relative p-4">
+    <div className="relative">
       <div
         className={`transition-all duration-300 ease-in-out ${
           isOpen ? "max-w-4xl" : "max-w-lg"
         }`}
       >
-        {/* Toggle Card Button */}
         <button
           onClick={toggleCard}
           className={`w-full px-4 py-2 flex justify-between items-center bg-charcoal text-cream rounded-t-[18px] transition-all duration-300 ease-in-out border-2 border-cream shadow-lg ${
             isOpen ? "rounded-b-none" : "rounded-[18px]"
           }`}
-          style={{ borderBottomLeftRadius: isOpen ? "0" : "0.375rem" }}
+          // style={{ borderBottomLeftRadius: isOpen ? "0" : "0.375rem" }}
         >
           <span>INGREDIENTS & NUTRITION FACTS</span>
           <svg
@@ -41,7 +40,6 @@ export const ContentDropdown = () => {
           </svg>
         </button>
 
-        {/* Expanded Content */}
         {isOpen && (
           <div className="w-full bg-charcoal text-cream p-[50px] rounded-b-[18px] shadow-md border-2 border-cream border-t-0 grid grid-cols-3 gap-4">
             <div className="col-span-2">

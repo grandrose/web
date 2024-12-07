@@ -11,12 +11,12 @@ export const OptionDropdown = ({
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 rounded-full bg-transparent text-white border border-gray-300"
+        className="px-4 py-2 rounded-full bg-transparent text-cream border border-cream"
       >
         {label}
       </button>
       {isOpen && (
-        <ul className="absolute left-0 mt-2 w-full bg-gray-900 text-white border border-gray-300 rounded-lg shadow-lg">
+        <ul className="absolute left-0 mt-2 bg-charcoal text-cream border border-gray-300 rounded-lg shadow-lg">
           {options.map((option, index) => (
             <li
               key={index}
@@ -24,7 +24,7 @@ export const OptionDropdown = ({
                 setIsOpen(false);
                 if (onSelect) onSelect(option);
               }}
-              className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+              className="px-4 py-2 hover:bg-cream hover:text-charcoal cursor-pointer rounded-lg"
             >
               {option}
             </li>
@@ -34,14 +34,3 @@ export const OptionDropdown = ({
     </div>
   );
 };
-
-/*
-EXAMPLE USAGE
-
-<Dropdown
-  label="Ingredients"
-  options={["Option 1", "Option 2", "Option 3"]}
-  onSelect={(option) => console.log("Selected:", option)}
-/>
-
-*/

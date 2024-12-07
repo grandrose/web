@@ -4,11 +4,18 @@ export const EmailSubmission = ({
   placeholder = "Enter your email",
   buttonLabel = "Submit",
   onSubmit,
+  showButton = true,
+  background = "dark",
 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSubmit) onSubmit(e.target.email.value);
   };
+
+  const inputStyles =
+    background === "dark"
+      ? "bg-transparent text-cream placeholder-gray-500 border-cream"
+      : "bg-cream text-charcoal placeholder-gray-400 border-charcoal";
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center space-x-2">
@@ -16,14 +23,16 @@ export const EmailSubmission = ({
         type="email"
         name="email"
         placeholder={placeholder}
-        className="px-4 py-2 rounded-full border border-gray-300 bg-transparent text-white placeholder-gray-500 focus:outline-none"
+        className={`px-4 py-2 rounded-full border border-cream focus:outline-none ${inputStyles}`}
       />
-      <button
-        type="submit"
-        className="px-4 py-2 rounded-full bg-white text-black hover:bg-gray-300 transition-all duration-200"
-      >
-        {buttonLabel}
-      </button>
+      {showButton && (
+        <button
+          type="submit"
+          className="px-4 py-2 rounded-full bg-cream border border-cream text-black hover:bg-charcoal hover:text-cream transition-all duration-200"
+        >
+          {buttonLabel}
+        </button>
+      )}
     </form>
   );
 };
