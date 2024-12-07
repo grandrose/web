@@ -4,23 +4,36 @@ import gradiant from "../assets/backgrounds/gr-core-gradient.png";
 import defaultCans from "../assets/temp/cans-small.png";
 import { VideoSection } from "../components/common";
 import { Button, PPPMarquee, Section } from "../components/theme";
+import { useCustomer } from "../context/CustomerContext";
+import TemplateVideo from "../assets/temp/template-video.mp4";
 
 export const Home = () => {
   const navigate = useNavigate();
+
+  const { logout } = useCustomer();
 
   const handleNavigateDevHome = () => {
     navigate("/");
   };
 
+  const devButtons = false;
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-charcoal text-cream pt-12">
-      <header className="text-center mb-4">
-        <p className="text-lg mb-6">Return to the dev home</p>
-        <Button onClick={handleNavigateDevHome} variant="default">
-          Dev
-        </Button>
-      </header>
-      <VideoSection />
+      {devButtons && (
+        <header className="text-center mb-4">
+          <p className="text-lg mb-6">Return to the dev home</p>
+          <Button onClick={handleNavigateDevHome} variant="default">
+            Dev
+          </Button>
+
+          <Button onClick={logout} variant="default">
+            logout
+          </Button>
+        </header>
+      )}
+
+      <VideoSection src={TemplateVideo} />
       <section className="py-24">
         <PPPMarquee />
       </section>
@@ -46,7 +59,6 @@ const Hero = () => {
   return (
     <section className="bg-charcoal text-cream flex items-center justify-center pb-36">
       <div className="flex flex-col md:flex-row gap-24 max-w-7xl mx-auto w-full">
-        {/* Image Section */}
         <div className="flex-1 h-auto md:h-[700px] border border-cream rounded-lg overflow-hidden flex items-center justify-center">
           <img
             src={images[currentSlide]}
@@ -55,7 +67,6 @@ const Hero = () => {
           />
         </div>
 
-        {/* Text and Button Section */}
         <div className="flex flex-col justify-between h-auto md:h-[700px] flex-1">
           <h1 className="text-[30px] md:text-[50px] leading-tight mb-6">
             Grand Rose is a functional-dose protein beverage infused with
@@ -64,7 +75,11 @@ const Hero = () => {
             recovery.
           </h1>
           <div className="flex items-center justify-start">
-            <Button onClick={() => navigate("/shop")} variant="default">
+            <Button
+              onClick={() => navigate("/shop")}
+              variant="default"
+              className="text-xl font-medium"
+            >
               ORDER NOW
             </Button>
           </div>

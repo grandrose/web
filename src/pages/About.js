@@ -5,8 +5,11 @@ import {
   Section,
   ProductGif,
   Button,
+  Media,
 } from "../components/theme";
 import { useNavigate } from "react-router-dom";
+import PlaceholderVideo from "../assets/temp/template-video.mp4";
+import "./styles/About.css";
 
 export const About = () => {
   const navigate = useNavigate();
@@ -18,19 +21,69 @@ export const About = () => {
   return (
     <>
       <FullscreenMedia
-        assetType="photo"
-        src=""
+        assetType="video"
+        src={PlaceholderVideo}
         overlayText="grand rose text overlay example"
       />
       <Section backgroundImage={gradiant}>
+        <section className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 py-32">
+          <div className="flex-1 text-cream px-6 lg:px-32 leading-relaxed text-2xl about-text">
+            <span className="font-bold tracking-wider block mb-4 about-text">
+              our story
+            </span>
+            Crafted for the discerning tastes of individuals committed to
+            continual self-improvement,{" "}
+            <span className="font-medium logo-text">grand rose</span> emerged
+            from the shared vision of three friends. Frustrated by the
+            inconsistent and often overwhelming intensity of many cannabinoid
+            products in their quest for a healthy lifestyle, they were driven to
+            find a solution.
+            <br />
+            <br />
+            <span className="font-medium logo-text">grand rose</span> is a
+            breakthrough protein powder, scientifically formulated with an
+            ingredient and cannabinoid matrix prioritizing functional recovery
+            and well-being, while ensuring a balanced experience for all.
+          </div>
+          <div className="flex-1 flex justify-center lg:justify-center">
+            <Media />
+          </div>
+        </section>
+        <section className="pt-32">
+          <p className="text-cream px-6 lg:px-32 leading-relaxed text-2xl about-text">
+            <span className="font-bold tracking-wider block mb-4 about-text">
+              our science
+            </span>
+            Crafted for the discerning tastes of individuals committed to
+            continual self-improvement,{" "}
+            <span className="font-medium logo-text">grand rose</span> emerged
+            from the shared vision of three friends. Frustrated by the
+            inconsistent and often overwhelming intensity of many cannabinoid
+            products in their quest for a healthy lifestyle, they were driven to
+            find a solution.
+            <br />
+            <br />
+            <span className="font-medium logo-text">grand rose</span> is a
+            breakthrough protein powder, scientifically formulated with an
+            ingredient and cannabinoid matrix prioritizing functional recovery
+            and well-being, while ensuring a balanced experience for all.
+          </p>
+        </section>
         <div className="h-[49.5vh] flex items-center justify-center">
           <h1 className="text-cream font-bold text-xl"></h1>
+          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-16 py-8">
+            <Media />
+            <Media />
+            <Media />
+          </div>
         </div>
       </Section>
       <section className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-16 py-8">
         <div className="flex-1 text-center lg:text-left pl-16">
           <div className="py-32">
-            <Button onClick={handleOrderClick}>ORDER NOW</Button>
+            <Button className="font-bold text-xl" onClick={handleOrderClick}>
+              ORDER NOW
+            </Button>
           </div>
           <h2 className="text-3xl font-bold text-cream mb-4">
             closerline + shop call to action
