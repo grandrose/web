@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# Grand Rose - Website Repository
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Grand Rose web repository! This is the codebase for the **Grand Rose** website, a React-based shop powered by Shopify's API.
 
-## Available Scripts
+**Grand Rose** is a functional-dose protein beverage infused with cannabinoids, designed to nourish health seekers, elevate active experiences, and serve as an integrated catalyst for recovery.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🌟 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Headless Shopify Integration**: Utilizes Shopify's Storefront API for a seamless shopping experience.
+- **React-Based Architecture**: Built with React to provide a fast, modern, and responsive user interface.
+- **Functional-Dose Beverage Focus**: Promotes an active and healthy lifestyle with cannabinoid-infused products.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🗈 Version
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**v0.1(beta)**
 
-### `npm run build`
+### Included Pages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Home**: Showcase the brand and its mission.
+2. **Shop**: Explore and purchase products.
+3. **About**: Learn about the Grand Rose story and values.
+4. **Store Locator**: Find nearby retailers carrying Grand Rose products.
+5. **Member Page (Profile)**: Personalized member experiences, including account and order details.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technology Stack
 
-### `npm run eject`
+- **React**: Frontend framework for building the user interface.
+- **Shopify Storefront API**: Headless Shopify integration for product and cart management.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **React Router**: Handles page navigation and routing.
+- **Context API**: Manages global state for cart, user sessions, and more.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Prerequisites
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Node.js** (>= 16.x)
+- **npm** (>= 8.x)
+- Shopify API keys (stored in environment variables)
 
-## Learn More
+### Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/grandrose/web.git
+   cd grand-rose-web
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Environment Setup
 
-### Code Splitting
+Create a `.env` file in the root directory and add the following variables:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```plaintext
+REACT_APP_SHOPIFY_STORE_DOMAIN=<your-shopify-store-domain>
+REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN=<your-shopify-storefront-access-token>
+```
 
-### Analyzing the Bundle Size
+### Run the Development Server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm install
+```
 
-### Making a Progressive Web App
+Access the site at `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Project Structure
 
-### Advanced Configuration
+grand-rose-web/
+├── public/ # Static assets
+├── src/
+│ ├── assets/ # Images, icons, and other media
+│ ├── components/ # Reusable UI components
+│ ├── context/ # Context API for state management
+│ ├── pages/ # Individual page components
+│ ├── styles/ # Global and component-specific styles
+│ ├── App.js # Main application component
+│ ├── index.js # Entry point
+│ └── ... # Additional configuration and files
+└── README.md # Documentation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Roadmap
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Future Versions
 
-### `npm run build` fails to minify
+- **v1.0.1**
+  - Enhanced member page with order history and preferences.
+  - Interactive animations and micro-interactions.
+  - Expanded product pages with detailed descriptions and reviews.
+  - Subscription and auto-reorder options.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## Contributors
+
+- **Austin Barrett** - Lead Developer
+- **TBD**
+
+---
