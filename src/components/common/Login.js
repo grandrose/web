@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { CoreButton } from "../theme";
 import { useCustomer } from "../../context/CustomerContext";
@@ -8,6 +8,15 @@ import axios from "axios";
 export const Login = ({ isModalOpen, toggleModal }) => {
   const loginRef = useRef(null);
   const { login, signUp, loginWithGoogle, isLoading } = useCustomer();
+  const [isIPhone, setIsIPhone] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is on an iPhone
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (/iPhone|iPad|iPod/i.test(userAgent)) {
+      setIsIPhone(true);
+    }
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -116,21 +125,21 @@ export const Login = ({ isModalOpen, toggleModal }) => {
                 >
                   <span className="mr-2">G</span> Continue with Google
                 </button>
-                <button
-                  onClick={() => console.log("TODO: Apple Login")}
-                  className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition"
-                  disabled={isLoading}
-                >
-                  <span className="mr-2"></span> Continue with Apple
-                </button>
+                {isIPhone && (
+                  <button
+                    onClick={() => console.log("TODO: Apple Login")}
+                    className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition"
+                    disabled={isLoading}
+                  >
+                    <span className="mr-2"></span> Continue with Apple
+                  </button>
+                )}
               </div>
               <p className="text-center text-xs mt-4">
                 By signing up you agree to our{" "}
                 <span
                   className="font-bold hover:cursor-pointer"
-                  onClick={() => {
-                    console.log("TODO");
-                  }}
+                  onClick={() => console.log("TODO")}
                 >
                   Terms and Privacy Policy
                 </span>
