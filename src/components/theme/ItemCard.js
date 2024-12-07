@@ -31,10 +31,10 @@ export const ItemCard = ({
 
       <div className="ml-4 flex-1 flex flex-col justify-between">
         <div>
-          <h2 className="text-charcoal text-[15px] font-medium">
+          <h2 className="text-charcoal text-md font-medium">
             {title} | {subtitle}
           </h2>
-          <p className="text-charcoal text-[15px] mt-1">${price}</p>
+          <p className="text-charcoal text-sm mt-4">${price}</p>
         </div>
         <button
           onClick={() => removeFromCart(id)}

@@ -4,13 +4,13 @@ export const Button = ({
   children,
   onClick,
   variant = "default",
-  className = "",
+  className = "font-medium",
   isSelected = false,
   disabled = false,
   ...props
 }) => {
   const baseStyles =
-    "px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none border-2";
+    "px-6 py-2 rounded-full text-sm transition-all duration-200 focus:outline-none border-2";
 
   const variants = {
     default:
