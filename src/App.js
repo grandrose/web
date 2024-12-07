@@ -3,11 +3,12 @@ import {
   BrowserRouter as Router,
   Routes,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import "./App.css";
 import { Footer, Navbar } from "./components/common";
 import { CartProvider } from "./context/CartContext";
-import { CustomerProvider } from "./context/CustomerContext";
+import { CustomerProvider, useCustomer } from "./context/CustomerContext";
 import {
   ComingSoon,
   DevHome,
@@ -32,7 +33,14 @@ function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/locate" element={<ComingSoon />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/profile" element={<ComingSoon />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ComingSoon />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/playground" element={<Playground />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
@@ -70,6 +78,16 @@ const Layout = ({ children }) => {
       )}
     </>
   );
+};
+
+const ProtectedRoute = ({ children }) => {
+  const { customer } = useCustomer();
+
+  if (!customer) {
+    return <Navigate to="/home" state={{ showLogin: true }} replace />;
+  }
+
+  return children;
 };
 
 export default App;
