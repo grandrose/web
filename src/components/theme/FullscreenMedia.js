@@ -16,7 +16,9 @@ export const FullscreenMedia = ({
   );
 
   return (
-    <div className={`relative w-screen h-screen overflow-hidden ${className}`}>
+    <div
+      className={`relative w-[99.1vw] h-screen overflow-hidden ${className}`}
+    >
       {!src && renderTemplate()}
       {src && assetType === "photo" && (
         <img

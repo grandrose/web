@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useCustomer } from "../../context/CustomerContext";
 import { Button } from "../theme";
 import { Cart } from "./Cart";
 import { Login } from "./Login";
-import { FaUser } from "react-icons/fa";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -35,7 +35,10 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-charcoal text-cream flex items-center justify-between px-[50px] py-[20px] fixed top-0 left-0 w-full z-50">
+      <nav
+        className="bg-charcoal text-cream flex items-center justify-between px-[50px] py-[20px] fixed top-0 left-0 w-full z-50 border-b"
+        style={{ borderColor: "rgba(248, 241, 241, 0.08)" }}
+      >
         <div className="flex items-center space-x-4">
           <Button
             variant="default"

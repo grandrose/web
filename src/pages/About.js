@@ -1,14 +1,14 @@
 import React from "react";
-import gradiant from "../assets/backgrounds/gr-core-gradient.png";
-import {
-  FullscreenMedia,
-  Section,
-  ProductGif,
-  Button,
-  Media,
-} from "../components/theme";
 import { useNavigate } from "react-router-dom";
+import gradiant from "../assets/backgrounds/gr-core-gradient.png";
 import PlaceholderVideo from "../assets/temp/template-video.mp4";
+import {
+  Button,
+  FullscreenMedia,
+  Media,
+  ProductGif,
+  Section,
+} from "../components/theme";
 import "./styles/About.css";
 
 export const About = () => {
@@ -78,7 +78,7 @@ export const About = () => {
           </div>
         </div>
       </Section>
-      <section className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-16 py-8">
+      <section className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-16 py-16">
         <div className="flex-1 text-center lg:text-left pl-16">
           <div className="py-32">
             <Button className="font-bold text-xl" onClick={handleOrderClick}>
