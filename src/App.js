@@ -1,24 +1,26 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import {
+  Navigate,
   Route,
   BrowserRouter as Router,
   Routes,
   useLocation,
-  Navigate,
 } from "react-router-dom";
 import "./App.css";
 import { Footer, Navbar } from "./components/common";
 import { CartProvider } from "./context/CartContext";
 import { CustomerProvider, useCustomer } from "./context/CustomerContext";
 import {
+  About,
   ComingSoon,
   DevHome,
+  Documents,
   Home,
-  Playground,
-  Shop,
   NotFound,
-  About,
+  Playground,
+  Policies,
+  Shop,
 } from "./pages";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route path="/policies" element={<Policies />} />
+                <Route path="/documents" element={<Documents />} />
                 <Route path="/playground" element={<Playground />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
