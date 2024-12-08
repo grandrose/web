@@ -68,6 +68,9 @@ export const Policies = () => {
   return (
     <div className="flex h-screen">
       <div className="w-1/4 bg-rose text-cream p-6">
+        <h2 className="text-3xl font-semibold mb-4 flex justify-center underline">
+          Policies & Statements
+        </h2>
         <ul className="space-y-4">
           <li
             className={`cursor-pointer ${
