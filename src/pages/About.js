@@ -19,7 +19,7 @@ export const About = () => {
   };
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       <FullscreenMedia
         assetType="video"
         src={PlaceholderVideo}
@@ -98,6 +98,6 @@ export const About = () => {
           <ProductGif />
         </div>
       </section>
-    </>
+    </div>
   );
 };

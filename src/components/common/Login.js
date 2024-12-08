@@ -96,14 +96,12 @@ export const Login = ({ isModalOpen, toggleModal }) => {
             </h2>
 
             <form onSubmit={handleLogin} className="flex flex-col gap-4">
-              {/* Centered Placeholder for Email Field */}
               <input
                 type="email"
                 name="email"
                 placeholder="email"
                 className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none text-center placeholder:text-center font-medium"
               />
-              {/* Centered Placeholder for Password Field */}
               <input
                 type="password"
                 name="password"

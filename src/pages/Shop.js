@@ -51,7 +51,6 @@ export const Shop = () => {
     <>
       <div className="flex flex-col items-center justify-center bg-charcoal text-cream">
         <section className="flex flex-col md:flex-row gap-12 p-12 max-w-6xl w-full">
-          {/* First Section */}
           <div className="w-full md:w-1/2 flex flex-col items-center border border-cream rounded-lg justify-center">
             <img
               src={productData.image?.src}
