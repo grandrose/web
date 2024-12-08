@@ -54,7 +54,7 @@ export const Cart = ({ isModalOpen, toggleModal }) => {
             {cart?.lineItems?.length > 0 ? (
               <>
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-lg font-semibold">my cart</h2>
+                  <h2 className="text-sm font-medium">my cart</h2>
                   <p className="text-sm font-medium">
                     items ({cart.lineItems.length})
                   </p>
@@ -90,7 +90,6 @@ export const Cart = ({ isModalOpen, toggleModal }) => {
                   <CoreButton
                     label="CHECKOUT"
                     onClick={handleCheckout}
-                    className="w-full text-lg py-3"
                     variant="dark"
                   />
                 </div>

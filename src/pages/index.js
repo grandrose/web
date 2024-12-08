@@ -1,9 +1,11 @@
 export { About } from "./About";
 export { ComingSoon } from "./ComingSoon";
 export { DevHome } from "./DevHome";
+export { Documents } from "./Documents";
 export { Home } from "./Home";
 export { Locate } from "./Locate";
+export { NotFound } from "./NotFound";
 export { Playground } from "./Playground";
+export { Policies } from "./Policies";
 export { Profile } from "./Profile";
 export { Shop } from "./Shop";
-export { NotFound } from "./NotFound";

@@ -1,4 +1,6 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import {
+  Navigate,
   Route,
   BrowserRouter as Router,
   Routes,
@@ -7,17 +9,18 @@ import {
 import "./App.css";
 import { Footer, Navbar } from "./components/common";
 import { CartProvider } from "./context/CartContext";
-import { CustomerProvider } from "./context/CustomerContext";
+import { CustomerProvider, useCustomer } from "./context/CustomerContext";
 import {
+  About,
   ComingSoon,
   DevHome,
+  Documents,
   Home,
-  Playground,
-  Shop,
   NotFound,
-  About,
+  Playground,
+  Policies,
+  Shop,
 } from "./pages";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
   return (
@@ -32,7 +35,16 @@ function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/locate" element={<ComingSoon />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/profile" element={<ComingSoon />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ComingSoon />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/policies" element={<Policies />} />
+                <Route path="/documents" element={<Documents />} />
                 <Route path="/playground" element={<Playground />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
@@ -70,6 +82,16 @@ const Layout = ({ children }) => {
       )}
     </>
   );
+};
+
+const ProtectedRoute = ({ children }) => {
+  const { customer } = useCustomer();
+
+  if (!customer) {
+    return <Navigate to="/home" state={{ showLogin: true }} replace />;
+  }
+
+  return children;
 };
 
 export default App;

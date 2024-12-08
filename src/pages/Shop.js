@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import gradiant from "../assets/backgrounds/gr-core-gradient.png";
 import IconGarnet from "../assets/icons/IconGarnet";
-import { Button, ContentDropdown, Section } from "../components/theme";
+import VeganIcon from "../assets/icons/vegan-cream.svg";
+import {
+  Button,
+  ContentDropdown,
+  EmailSubmission,
+  ProductGif,
+  Section,
+} from "../components/theme";
 import { useCart } from "../context/CartContext";
 import { fetchProductByHandle } from "../lib";
-import VeganIcon from "../assets/icons/vegan-cream.svg"; // Import as image
 
 export const Shop = () => {
   const { addToCart, toggleCart } = useCart();
@@ -45,7 +51,6 @@ export const Shop = () => {
     <>
       <div className="flex flex-col items-center justify-center bg-charcoal text-cream">
         <section className="flex flex-col md:flex-row gap-12 p-12 max-w-6xl w-full">
-          {/* First Section */}
           <div className="w-full md:w-1/2 flex flex-col items-center border border-cream rounded-lg justify-center">
             <img
               src={productData.image?.src}
@@ -55,10 +60,8 @@ export const Shop = () => {
           </div>
           <div className="w-full md:w-1/2">
             <div className="flex items-center mb-6">
-              <h2 className="text-6xl font-extrabold leading-none">
-                {productData.title}
-              </h2>
-              <div className="ml-4">
+              <h2 className="text-6xl leading-none">{productData.title}</h2>
+              <div className="ml-4 -translate-y-6 -translate-x-2">
                 <IconGarnet className="w-8 h-8" />
               </div>
             </div>
@@ -93,7 +96,7 @@ export const Shop = () => {
                 addToCart(selectedVariant.id, 1);
                 toggleCart();
               }}
-              className="w-full py-4 mb-8 text-xl rounded-full bg-cream text-charcoal hover:bg-rose hover:text-cream"
+              className="w-full py-4 mb-8 text-xl rounded-full bg-cream text-charcoal hover:bg-rose hover:text-cream font-medium"
             >
               ADD TO CART
             </Button>
@@ -104,7 +107,35 @@ export const Shop = () => {
           <NutritionFacts />
         </section>
       </div>
-      <Section backgroundImage={gradiant} />
+      <Section backgroundImage={gradiant}>
+        <div className="min-h-[95vh]"></div> {/*Temp screen space filler*/}
+      </Section>
+      <section className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-32 py-8">
+        <div className="flex-1 text-center lg:text-left pl-16">
+          <div className="py-32">
+            <h2 className="text-3xl text-cream mb-4">Not sold?</h2>
+          </div>
+          <p className="text-lg text-cream mb-6">
+            Subscribe via email for a discount on delivery!
+          </p>
+          <EmailSubmission
+            placeholder="your@email.com"
+            background="light"
+            onSubmit={(email) => null}
+          />
+          <div className="py-32">
+            <Button
+              className="font-medium text-xl"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              ORDER ONLINE
+            </Button>
+          </div>
+        </div>
+        <div className="flex-1 flex justify-center">
+          <ProductGif />
+        </div>
+      </section>
     </>
   );
 };
