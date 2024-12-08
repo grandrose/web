@@ -9,7 +9,7 @@ import {
   ProductGif,
   Section,
 } from "../components/theme";
-import "./styles/About.css";
+import "./styles/Highlight.css";
 
 export const About = () => {
   const navigate = useNavigate();
@@ -33,14 +33,14 @@ export const About = () => {
             </span>
             Crafted for the discerning tastes of individuals committed to
             continual self-improvement,{" "}
-            <span className="font-medium logo-text">grand rose</span> emerged
+            <span className="font-medium logo-light">grand rose</span> emerged
             from the shared vision of three friends. Frustrated by the
             inconsistent and often overwhelming intensity of many cannabinoid
             products in their quest for a healthy lifestyle, they were driven to
             find a solution.
             <br />
             <br />
-            <span className="font-medium logo-text">grand rose</span> is a
+            <span className="font-medium logo-light">grand rose</span> is a
             breakthrough protein powder, scientifically formulated with an
             ingredient and cannabinoid matrix prioritizing functional recovery
             and well-being, while ensuring a balanced experience for all.
@@ -56,14 +56,14 @@ export const About = () => {
             </span>
             Crafted for the discerning tastes of individuals committed to
             continual self-improvement,{" "}
-            <span className="font-medium logo-text">grand rose</span> emerged
+            <span className="font-medium logo-light">grand rose</span> emerged
             from the shared vision of three friends. Frustrated by the
             inconsistent and often overwhelming intensity of many cannabinoid
             products in their quest for a healthy lifestyle, they were driven to
             find a solution.
             <br />
             <br />
-            <span className="font-medium logo-text">grand rose</span> is a
+            <span className="font-medium logo-light">grand rose</span> is a
             breakthrough protein powder, scientifically formulated with an
             ingredient and cannabinoid matrix prioritizing functional recovery
             and well-being, while ensuring a balanced experience for all.

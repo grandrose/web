@@ -3,7 +3,12 @@
     color: #0E0E0E;
   }
 
-.logo-text::selection {
+.logo-light::selection {
     background-color: #0E0E0E;
     color: #F8F1F1;
+}
+
+.logo-dark::selection {
+  background-color: #F8F1F1;
+  color: #0E0E0E;
 }

@@ -6,6 +6,7 @@ import TemplateVideo from "../assets/temp/template-video.mp4";
 import { VideoSection } from "../components/common";
 import { Button, PPPMarquee, Section } from "../components/theme";
 import { useCustomer } from "../context/CustomerContext";
+import "./styles/Highlight.css";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -72,10 +73,10 @@ const Hero = () => {
 
         <div className="flex flex-col justify-between h-auto md:h-[700px] flex-1">
           <h1 className="text-[30px] md:text-[50px] leading-tight mb-6">
-            Grand Rose is a functional-dose protein beverage infused with
-            cannabinoids developed to nourish the health seeker by elevating
-            active experiences and serving as an integrated catalyst for
-            recovery.
+            <span className="logo-dark">Grand Rose</span> is a functional-dose
+            protein beverage infused with cannabinoids developed to nourish the
+            health seeker by elevating active experiences and serving as an
+            integrated catalyst for recovery.
           </h1>
           <div className="flex items-center justify-start">
             <Button
@@ -122,9 +123,10 @@ const InfoSection = ({ src, type = "image" }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 py-16">
           <p className="text-3xl leading-relaxed">
-            At the heart of Grand Rose lies a meticulously crafted cannabinoid
-            matrix, designed with a science-forward approach to deliver optimal
-            and functional results in every dose.
+            At the heart of <span className="logo-dark">Grand Rose</span> lies a
+            meticulously crafted cannabinoid matrix, designed with a
+            science-forward approach to deliver optimal and functional results
+            in every dose.
           </p>
           <p className="text-3xl leading-relaxed">
             Each ingredient is carefully selected and balanced to ensure
