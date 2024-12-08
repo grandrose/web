@@ -1,11 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { IoClose } from "react-icons/io5";
-import { CoreButton } from "../theme";
-import { useCustomer } from "../../context/CustomerContext";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import GoogleIcon from "../../assets/icons/google.svg";
+import { useCustomer } from "../../context/CustomerContext";
+import { CoreButton } from "../theme";
 
 export const Login = ({ isModalOpen, toggleModal }) => {
+  const navigate = useNavigate();
   const loginRef = useRef(null);
   const { login, signUp, loginWithGoogle, isLoading } = useCustomer();
   const [isIPhone, setIsIPhone] = useState(false);
@@ -93,37 +96,48 @@ export const Login = ({ isModalOpen, toggleModal }) => {
             </h2>
 
             <form onSubmit={handleLogin} className="flex flex-col gap-4">
+              {/* Centered Placeholder for Email Field */}
               <input
                 type="email"
                 name="email"
                 placeholder="email"
-                className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none"
+                className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none text-center placeholder:text-center font-medium"
               />
+              {/* Centered Placeholder for Password Field */}
               <input
                 type="password"
                 name="password"
                 placeholder="password"
-                className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none"
+                className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none text-center placeholder:text-center font-medium"
               />
               <div className="mt-8">
                 <h3 className="text-center text-2xl font-medium mb-4">
                   Create Account
                 </h3>
                 <div className="flex flex-col gap-4">
+                  {/* Google Login Button */}
                   <button
                     onClick={googleLogin}
-                    className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition"
+                    className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition relative font-medium"
                     disabled={isLoading}
                   >
-                    <span className="mr-2">G</span> Continue with Google
+                    <img
+                      src={GoogleIcon}
+                      alt="Google Icon"
+                      style={{ width: 25, height: 25 }}
+                      className="absolute left-4"
+                    />
+                    Continue with Google
                   </button>
+                  {/* Apple Login Button */}
                   {isIPhone && (
                     <button
                       onClick={() => console.log("TODO: Apple Login")}
-                      className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition"
+                      className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition relative font-medium"
                       disabled={isLoading}
                     >
-                      <span className="mr-2"></span> Continue with Apple
+                      <span className="absolute left-4 text-xl"></span>
+                      Continue with Apple
                     </button>
                   )}
                 </div>
@@ -131,7 +145,12 @@ export const Login = ({ isModalOpen, toggleModal }) => {
                   By signing up you agree to our{" "}
                   <span
                     className="font-bold hover:cursor-pointer"
-                    onClick={() => console.log("TODO")}
+                    onClick={() => {
+                      toggleModal();
+                      navigate("/policies", {
+                        state: { section: "terms-of-service" },
+                      });
+                    }}
                   >
                     Terms and Privacy Policy
                   </span>
