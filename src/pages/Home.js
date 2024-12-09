@@ -34,7 +34,7 @@ export const Home = () => {
         </header>
       )}
 
-      <VideoSection src={TemplateVideo} />
+      <VideoSection src={TemplateVideo} overlayText={"Endure Indefinite"} />
       <section className="py-24">
         <PPPMarquee />
       </section>
@@ -72,7 +72,7 @@ const Hero = () => {
         </div>
 
         <div className="flex flex-col justify-between h-auto md:h-[700px] flex-1">
-          <h1 className="text-[30px] md:text-[50px] leading-tight mb-6">
+          <h1 className="text-5xl leading-tight mb-6 font-medium">
             <span className="logo-dark">Grand Rose</span> is a functional-dose
             protein beverage infused with cannabinoids developed to nourish the
             health seeker by elevating active experiences and serving as an
