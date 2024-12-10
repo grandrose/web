@@ -8,7 +8,7 @@ export const ProductGif = ({
 }) => {
   const renderTemplate = () => (
     <div
-      className="w-[500px] h-[625px] flex items-center justify-center text-gray-800 rounded-lg"
+      className="w-full max-w-[500px] h-[625px] max-h-screen flex items-center justify-center text-gray-800 rounded-lg"
       style={{ backgroundColor: "rgba(248, 241, 241, 0.08)" }}
     >
       <p className="text-lg font-semibold text-center px-4 text-cream">
@@ -19,7 +19,7 @@ export const ProductGif = ({
 
   return (
     <div
-      className={`relative w-[500px] h-[625px] overflow-hidden flex items-center justify-center ${className}`}
+      className={`relative w-full max-w-[500px] h-[625px] max-h-screen overflow-hidden flex items-center justify-center ${className}`}
     >
       {!src && renderTemplate()}
       {src && (

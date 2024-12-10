@@ -8,7 +8,7 @@ export const VideoSection = ({
 }) => {
   return (
     <div className="relative w-full h-[700px] bg-transparent text-cream">
-      <div className="w-[calc(100%-200px)] mx-auto h-full border border-cream rounded-lg flex items-center justify-center overflow-hidden">
+      <div className="w-full sm:w-[calc(100%-200px)] mx-auto h-full border border-cream rounded-lg flex items-center justify-center overflow-hidden">
         {src ? (
           mediaType === "video" ? (
             <video
@@ -35,7 +35,7 @@ export const VideoSection = ({
       </div>
       {overlayText && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-6xl text-cream font-medium text-center px-4">
+          <p className="text-4xl sm:text-6xl text-cream font-medium text-center px-4">
             {overlayText}
           </p>
         </div>
