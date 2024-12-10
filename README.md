@@ -1,5 +1,7 @@
 # Grand Rose - Website Repository
 
+###### _`Last Updated: 12/10/24`_
+
 Welcome to the Grand Rose web repository! This is the codebase for the **Grand Rose** website, a React-based shop powered by Shopify's API.
 
 **Grand Rose** is a functional-dose protein beverage infused with cannabinoids, designed to nourish health seekers, elevate active experiences, and serve as an integrated catalyst for recovery.
@@ -8,7 +10,8 @@ Welcome to the Grand Rose web repository! This is the codebase for the **Grand R
 
 ## 🗈 Version
 
-**v0.1(beta)**
+Latest: **`v0.1(beta)`**<br>
+Next: **`v0.2(beta - backend)`**
 
 ---
 
@@ -36,7 +39,7 @@ Welcome to the Grand Rose web repository! This is the codebase for the **Grand R
 
 ### Prerequisites
 
-- **Node.js** (>= 16.x)
+- **Node.js** (>= 16.x) ([Node.js Download](https://nodejs.org/en/download/package-manager))
 - **npm** (>= 8.x)
 - Shopify API keys (stored in environment variables)
 
@@ -56,12 +59,15 @@ Create a `.env` file in the root directory and add the following variables:
 ```plaintext
 REACT_APP_SHOPIFY_STORE_DOMAIN=<your-shopify-store-domain>
 REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN=<your-shopify-storefront-access-token>
+REACT_APP_SHOPIFY_CUSTOMER_ACCESS_TOKEN_KEY=<shpat...shopify-customer-access-token>
+REACT_APP_SHOPIFY_CLIENT_ID=<shp... shopify-client-id>
+REACT_APP_LOCATION_ID=<location-id>
 ```
 
 ### Run the Development Server
 
 ```bash
-npm install
+npm run start
 ```
 
 Access the site at `http://localhost:3000`.
@@ -90,7 +96,21 @@ grand-rose-web/
 
 ### Future Versions
 
-- **v1.0.1**
+###### _(Listed features are not final and version features are subject to change)_
+
+- **v0.2(beta) - New Features & Improvements**
+
+  - Backend deployment for customer and admin API.
+  - Member page with orders, history and customer details.
+  - Mobile opimizations for cart and login.
+  - General bug fixes
+
+- **v1.0.0 - Initial Public Release**
+
+  - General bug fixes
+  - Wholesale page
+
+- **v1.0.1 - Continued Support**
   - Enhanced member page with order history and preferences.
   - Interactive animations and micro-interactions.
   - Expanded product pages with detailed descriptions and reviews.
@@ -98,7 +118,7 @@ grand-rose-web/
 
 ---
 
-## Contributors
+## Development Team / Contributors
 
 - **Austin Barrett** - Lead Developer
 - **TBD**
