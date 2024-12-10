@@ -65,7 +65,7 @@ export const Cart = ({ isModalOpen, toggleModal }) => {
                     <div key={item.id}>
                       <ItemCard
                         title={item.title}
-                        subtitle="2.5mg THC"
+                        subtitle={item.title === "bloom" ? "| 2.5mg THC" : null}
                         price={item.variant.price.amount}
                         quantity={item.quantity}
                         variant={item.variant}

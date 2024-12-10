@@ -18,9 +18,14 @@ export const Documents = () => {
       case "document-1":
         return (
           <div>
-            <h1 className="text-2xl font-bold mb-4">Document Header 1</h1>
+            <h1 className="text-2xl font-bold mb-4">Lab Results</h1>
             <hr className="my-8 border-cream opacity-50" />
-            <p>Document 1 placeholder.</p>
+            <iframe
+              src="https://19january2021snapshot.epa.gov/sites/static/files/2018-10/documents/placeholder_pdf.pdf"
+              width="100%"
+              height="700px"
+              title="Lab Results"
+            />
           </div>
         );
       case "document-2":
@@ -28,7 +33,12 @@ export const Documents = () => {
           <div>
             <h1 className="text-2xl font-bold mb-4">Document Header 2</h1>
             <hr className="my-8 border-cream opacity-50" />
-            <p>Document 2 placeholder</p>
+            <iframe
+              src="https://19january2021snapshot.epa.gov/sites/static/files/2018-10/documents/placeholder_pdf.pdf"
+              width="100%"
+              height="700px"
+              title="Document 2"
+            />
           </div>
         );
       default:
