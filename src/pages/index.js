@@ -9,3 +9,4 @@ export { Playground } from "./Playground";
 export { Policies } from "./Policies";
 export { Profile } from "./Profile";
 export { Shop } from "./Shop";
+export { ShopOLD } from "./Shop.old";

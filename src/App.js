@@ -7,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.css";
-import { Footer, Navbar } from "./components/common";
+import { Footer, Navbar, MobileNavbar } from "./components/common";
 import { CartProvider } from "./context/CartContext";
 import { CustomerProvider, useCustomer } from "./context/CustomerContext";
 import {
@@ -16,6 +16,7 @@ import {
   DevHome,
   Documents,
   Home,
+  Locate,
   NotFound,
   Playground,
   Policies,
@@ -62,9 +63,14 @@ const Layout = ({ children }) => {
   return (
     <>
       {location.pathname !== "/" && location.pathname !== "/playground" && (
-        <div className="mt-[100px]">
-          <Navbar />
-        </div>
+        <>
+          <div className="hidden lg:block mt-[100px]">
+            <Navbar />
+          </div>
+          <div className="lg:hidden mt-[100px]">
+            <MobileNavbar />
+          </div>
+        </>
       )}
       {children}
       {location.pathname !== "/" && location.pathname !== "/playground" && (

@@ -24,7 +24,10 @@ export const EmailSubmission = ({
       : "bg-cream border border-charcoal text-charcoal hover:bg-charcoal hover:text-cream";
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center space-x-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-2 sm:space-y-0 sm:space-x-2"
+    >
       <input
         type="email"
         name="email"
