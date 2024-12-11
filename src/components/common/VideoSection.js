@@ -11,13 +11,20 @@ export const VideoSection = ({
       <div className="w-full sm:w-[calc(100%-200px)] mx-auto h-full border border-cream rounded-lg flex items-center justify-center overflow-hidden">
         {src ? (
           mediaType === "video" ? (
-            <video
-              src={src}
-              className="w-full h-full object-cover"
-              autoPlay
-              loop
-              muted
-            />
+            <div className="relative w-full h-full">
+              <video
+                src={src}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+              <div
+                className="absolute inset-0"
+                onClick={(e) => e.preventDefault()}
+              />
+            </div>
           ) : mediaType === "photo" || mediaType === "image" ? (
             <img src={src} alt="Media" className="w-full h-full object-cover" />
           ) : mediaType === "gif" ? (
