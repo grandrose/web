@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/checkout", "destination": "https://iayi85-s0.myshopify.com/checkout" }
+  ]
+}

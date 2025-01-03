@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export const EmailSubmission = ({
   placeholder = "Enter your email",
@@ -8,9 +8,29 @@ export const EmailSubmission = ({
   background = "dark",
   buttonTheme = "dark",
 }) => {
-  const handleSubmit = (e) => {
+  const [statusMessage, setStatusMessage] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (onSubmit) onSubmit(e.target.email.value);
+    const email = e.target.email.value;
+    try {
+      const response = await fetch("/api/addToMarketing", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setStatusMessage("Successfully signed up for marketing!");
+      } else {
+        const errorData = await response.json();
+        setStatusMessage(errorData.error || "An error occurred.");
+      }
+    } catch (error) {
+      setStatusMessage("Failed to sign up. Please try again.");
+    }
   };
 
   const inputStyles =
@@ -24,24 +44,30 @@ export const EmailSubmission = ({
       : "bg-cream border border-charcoal text-charcoal hover:bg-charcoal hover:text-cream";
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-2 sm:space-y-0 sm:space-x-2"
-    >
-      <input
-        type="email"
-        name="email"
-        placeholder={placeholder}
-        className={`px-4 py-2 rounded-full border focus:outline-none ${inputStyles}`}
-      />
-      {showButton && (
-        <button
-          type="submit"
-          className={`px-4 py-2 rounded-full font-medium transition-all duration-200 ${buttonStyles}`}
-        >
-          {buttonLabel}
-        </button>
+    <div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-2 sm:space-y-0 sm:space-x-2"
+      >
+        <input
+          type="email"
+          name="email"
+          placeholder={placeholder}
+          className={`px-4 py-1 rounded-full border focus:outline-none ${inputStyles}`}
+          required
+        />
+        {showButton && (
+          <button
+            type="submit"
+            className={`px-4 py-1 rounded-full font-medium transition-all duration-200 ${buttonStyles}`}
+          >
+            {buttonLabel}
+          </button>
+        )}
+      </form>
+      {statusMessage && (
+        <p className="mt-2 text-sm text-red-900 font-bold">{statusMessage}</p>
       )}
-    </form>
+    </div>
   );
 };

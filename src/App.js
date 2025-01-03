@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import React, { useEffect, useState } from "react";
 import {
   Navigate,
   Route,
@@ -7,17 +7,17 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import "./App.css";
-import { Footer, Navbar, MobileNavbar } from "./components/common";
+import { Footer, MobileNavbar, Navbar } from "./components/common";
 import { CartProvider } from "./context/CartContext";
 import { CustomerProvider, useCustomer } from "./context/CustomerContext";
 import {
   About,
   ComingSoon,
-  DevHome,
+  Customer,
   Documents,
   Home,
-  Locate,
   NotFound,
   Playground,
   Policies,
@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     const verified = localStorage.getItem("_bKaC");
-    if (verified === "true") {
+    if (verified === btoa("true")) {
       setIsVerified(true);
     }
   }, []);
@@ -38,15 +38,24 @@ function App() {
     return <PasswordPage onPasswordSuccess={() => setIsVerified(true)} />;
   }
 
+  const ScrollToTop = () => {
+    const { pathname, search } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname, search]);
+    return null;
+  };
+
   return (
-    <GoogleOAuthProvider clientId="TODO">
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <CustomerProvider>
         <CartProvider>
           <Router>
+            <ScrollToTop />
             <Layout>
               <Routes>
-                <Route path="/" element={<DevHome />} />
-                <Route path="/home" element={<Home />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/locate" element={<ComingSoon />} />
                 <Route path="/about" element={<About />} />
@@ -54,7 +63,7 @@ function App() {
                   path="/profile"
                   element={
                     <ProtectedRoute>
-                      <ComingSoon />
+                      <Customer />
                     </ProtectedRoute>
                   }
                 />
@@ -76,20 +85,20 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      {location.pathname !== "/" && location.pathname !== "/playground" && (
+      {location.pathname !== "/playground" && (
         <>
-          <div className="hidden lg:block mt-[100px]">
+          <div className="hidden lg:block mt-[81px]">
             <Navbar />
           </div>
-          <div className="lg:hidden mt-[100px]">
+          <div className="lg:hidden mt-[70px]">
             <MobileNavbar />
           </div>
         </>
       )}
       {children}
-      {location.pathname !== "/" && location.pathname !== "/playground" && (
+      {location.pathname !== "/playground" && (
         <div
-          className="bg-charcoal relative h-[300px]"
+          className="bg-dark relative h-[300px]"
           style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
         >
           <div
@@ -104,43 +113,21 @@ const Layout = ({ children }) => {
   );
 };
 
-const PasswordPage = ({ onPasswordSuccess }) => {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-charcoal text-cream px-6">
-      <div className="text-center mb-10">
-        <h1 className="text-5xl font-bold mb-2">Grand Rose</h1>
-        <p className="text-lg">
-          Our website is currently under development. Check back soon!
-        </p>
-      </div>
-      <PasswordDropdown onPasswordSuccess={onPasswordSuccess} />
-      {/* Instagram Section */}
-      <div className="mt-10 text-center">
-        <p className="text-lg">Follow us on Instagram for updates!</p>
-        <a
-          href="https://www.instagram.com/drinkgrandrose"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 inline-block px-6 py-2 bg-rose text-cream rounded-full border-2 border-rose font-medium hover:bg-cream hover:text-rose transition-all duration-200"
-        >
-          Follow @drinkgrandrose
-        </a>
-      </div>
-    </div>
-  );
-};
-
 const ProtectedRoute = ({ children }) => {
-  const { customer } = useCustomer();
+  const { customer, isLoading, hasLoaded } = useCustomer();
 
-  if (!customer) {
-    return <Navigate to="/home" state={{ showLogin: true }} replace />;
+  if (isLoading || !hasLoaded) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <ClipLoader color="#6b0808" size={50} />
+      </div>
+    );
   }
-
+  if (!customer) {
+    return <Navigate to="/" state={{ showLogin: true }} replace />;
+  }
   return children;
 };
-
-export default App;
 
 const PasswordDropdown = ({ onPasswordSuccess }) => {
   const [input, setInput] = useState("");
@@ -150,7 +137,7 @@ const PasswordDropdown = ({ onPasswordSuccess }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input === process.env.REACT_APP_GRAND_ROSE_PASS) {
-      localStorage.setItem("_bKaC", "true");
+      localStorage.setItem("_bKaC", btoa("true"));
       onPasswordSuccess();
     } else {
       setError("Incorrect password. Please try again.");
@@ -222,3 +209,31 @@ const PasswordDropdown = ({ onPasswordSuccess }) => {
     </div>
   );
 };
+
+const PasswordPage = ({ onPasswordSuccess }) => {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-charcoal text-cream px-6">
+      <div className="text-center mb-10">
+        <h1 className="text-5xl font-bold mb-2">Grand Rose</h1>
+        <p className="text-lg">
+          Our website is currently under development. Check back soon!
+        </p>
+      </div>
+      <PasswordDropdown onPasswordSuccess={onPasswordSuccess} />
+      {/* Instagram Section */}
+      <div className="mt-10 text-center">
+        <p className="text-lg">Follow us on Instagram for updates!</p>
+        <a
+          href="https://www.instagram.com/drinkgrandrose"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-block px-6 py-2 bg-rose text-cream rounded-full border-2 border-rose font-medium hover:bg-cream hover:text-rose transition-all duration-200"
+        >
+          Follow @drinkgrandrose
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default App;

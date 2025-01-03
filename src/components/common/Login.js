@@ -1,7 +1,7 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import GoogleIcon from "../../assets/icons/google.svg";
 import { useCustomer } from "../../context/CustomerContext";
@@ -12,13 +12,14 @@ export const Login = ({ isModalOpen, toggleModal }) => {
   const loginRef = useRef(null);
   const { login, signUp, loginWithGoogle, isLoading } = useCustomer();
   const [isIPhone, setIsIPhone] = useState(false);
+  const [isSignupMode, setIsSignupMode] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   useEffect(() => {
-    // Check if the user is on an iPhone
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    if (/iPhone|iPad|iPod/i.test(userAgent)) {
-      setIsIPhone(true);
-    }
+    // Detect if the user is on an iPhone
+    setIsIPhone(/iPhone|iPad|iPod/i.test(navigator.userAgent));
   }, []);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export const Login = ({ isModalOpen, toggleModal }) => {
         loginRef.current &&
         !loginRef.current.contains(event.target)
       ) {
+        setFormError("");
         toggleModal();
       }
     };
@@ -38,20 +40,39 @@ export const Login = ({ isModalOpen, toggleModal }) => {
     };
   }, [isModalOpen, toggleModal]);
 
-  const handleLogin = (e) => {
+  const handleAuth = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    login(email, password)
-      .then(() => {
-        toggleModal();
-      })
-      .catch((error) => {
-        console.error("Login error:", error);
-      });
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
+    const confirmPassword = e.target.confirmPassword?.value.trim();
+
+    if (!email || !password || (isSignupMode && !confirmPassword)) {
+      setFormError("All fields are required.");
+      return;
+    }
+
+    if (isSignupMode && password !== confirmPassword) {
+      setFormError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      if (isSignupMode) {
+        await signUp(email, password);
+      } else {
+        await login(email, password);
+      }
+      setFormError("");
+      toggleModal();
+    } catch (error) {
+      setFormError(
+        error?.message || "An unexpected error occurred. Please try again."
+      );
+    }
   };
 
-  const googleLogin = useGoogleLogin({
+  const handleGoogleLogin = useGoogleLogin({
+    scope: "openid profile email",
     onSuccess: async (response) => {
       try {
         const { data: googleUser } = await axios.get(
@@ -62,17 +83,22 @@ export const Login = ({ isModalOpen, toggleModal }) => {
             },
           }
         );
+
         const { email } = googleUser;
 
-        // Use the loginWithGoogle function from your CustomerContext
-        loginWithGoogle(email, response.access_token);
+        if (!email) {
+          throw new Error("Failed to retrieve email from Google OAuth.");
+        }
+
+        await loginWithGoogle(email, response.access_token);
+        setFormError("");
         toggleModal();
       } catch (error) {
-        console.error("Google login error:", error);
+        setFormError("Google login failed. Please try again.");
       }
     },
     onError: (error) => {
-      console.error("Google OAuth error:", error);
+      setFormError("Google OAuth failed. Please try again.");
     },
   });
 
@@ -92,70 +118,119 @@ export const Login = ({ isModalOpen, toggleModal }) => {
             </button>
 
             <h2 className="text-2xl mb-4 font-medium text-center">
-              Welcome Back
+              {isSignupMode ? "Create an Account" : "Welcome Back"}
             </h2>
 
-            <form onSubmit={handleLogin} className="flex flex-col gap-4">
+            {formError && (
+              <p className="text-red-600 text-sm text-center mb-4">
+                {formError}
+              </p>
+            )}
+
+            <form onSubmit={handleAuth} className="flex flex-col gap-4">
               <input
                 type="email"
                 name="email"
-                placeholder="email"
+                placeholder="Email"
+                required
                 className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none text-center placeholder:text-center font-medium"
               />
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none text-center placeholder:text-center font-medium"
-              />
-              <div className="mt-8">
-                <h3 className="text-center text-2xl font-medium mb-4">
-                  Create Account
-                </h3>
-                <div className="flex flex-col gap-4">
-                  {/* Google Login Button */}
+              <div className="relative">
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  required
+                  className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none text-center placeholder:text-center font-medium"
+                />
+                <button
+                  type="button"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? <IoEyeOff /> : <IoEye />}
+                </button>
+              </div>
+              {isSignupMode && (
+                <div className="relative">
+                  <input
+                    type={confirmPasswordVisible ? "text" : "password"}
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    required
+                    className="w-full px-4 py-2 border border-charcoal rounded-full bg-transparent text-charcoal focus:outline-none text-center placeholder:text-center font-medium"
+                  />
                   <button
-                    onClick={googleLogin}
+                    type="button"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                    onClick={() =>
+                      setConfirmPasswordVisible(!confirmPasswordVisible)
+                    }
+                  >
+                    {confirmPasswordVisible ? <IoEyeOff /> : <IoEye />}
+                  </button>
+                </div>
+              )}
+              <CoreButton
+                label={isSignupMode ? "SIGN UP" : "LOGIN"}
+                type="submit"
+                disabled={isLoading}
+              />
+            </form>
+
+            <div className="mt-4 text-center">
+              <button
+                className="text-sm font-medium text-rose hover:underline"
+                onClick={() => setIsSignupMode(!isSignupMode)}
+              >
+                {isSignupMode
+                  ? "Already have an account? Log in"
+                  : "Don't have an account? Sign up"}
+              </button>
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-center text-2xl font-medium mb-4">Or</h3>
+              <div className="flex flex-col gap-4">
+                <button
+                  onClick={handleGoogleLogin}
+                  className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition relative font-medium"
+                  disabled={isLoading}
+                >
+                  <img
+                    src={GoogleIcon}
+                    alt="Google Icon"
+                    className="absolute left-4 w-6 h-6"
+                  />
+                  Continue with Google
+                </button>
+                {isIPhone && (
+                  <button
+                    onClick={() => alert("Apple login is not implemented yet.")}
                     className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition relative font-medium"
                     disabled={isLoading}
                   >
-                    <img
-                      src={GoogleIcon}
-                      alt="Google Icon"
-                      style={{ width: 25, height: 25 }}
-                      className="absolute left-4"
-                    />
-                    Continue with Google
+                    <span className="absolute left-4 text-xl"></span>
+                    Continue with Apple
                   </button>
-                  {/* Apple Login Button */}
-                  {isIPhone && (
-                    <button
-                      onClick={() => console.log("TODO: Apple Login")}
-                      className="w-full px-4 py-2 flex items-center justify-center border border-charcoal rounded-full bg-transparent text-charcoal hover:bg-charcoal hover:text-cream transition relative font-medium"
-                      disabled={isLoading}
-                    >
-                      <span className="absolute left-4 text-xl"></span>
-                      Continue with Apple
-                    </button>
-                  )}
-                </div>
-                <p className="text-center text-xs mt-4">
-                  By signing up you agree to our{" "}
-                  <span
-                    className="font-bold hover:cursor-pointer"
-                    onClick={() => {
-                      toggleModal();
-                      navigate("/policies", {
-                        state: { section: "terms-of-service" },
-                      });
-                    }}
-                  >
-                    Terms and Privacy Policy
-                  </span>
-                </p>
+                )}
               </div>
-              <CoreButton label="LOGIN" type="submit" disabled={isLoading} />
-            </form>
+            </div>
+
+            <p className="text-center text-xs mt-4">
+              By signing up you agree to our{" "}
+              <span
+                className="font-bold hover:cursor-pointer"
+                onClick={() => {
+                  toggleModal();
+                  navigate("/policies", {
+                    state: { section: "terms-of-service" },
+                  });
+                }}
+              >
+                Terms and Privacy Policy
+              </span>
+            </p>
           </div>
         </div>
       )}

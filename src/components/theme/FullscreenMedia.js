@@ -16,8 +16,11 @@ export const FullscreenMedia = ({
   );
 
   return (
-    <div className={`relative w-screen h-screen overflow-hidden ${className}`}>
+    <div
+      className={`relative w-full h-screen overflow-hidden overflow-x-hidden ${className}`}
+    >
       {!src && renderTemplate()}
+
       {src && assetType === "photo" && (
         <img
           src={src}
@@ -45,10 +48,17 @@ export const FullscreenMedia = ({
 
       {/* Centered Overlay Text */}
       {overlayText && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-6xl text-cream font-medium text-center px-4">
-            {overlayText}
-          </p>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          {overlayText.lineOne && (
+            <p className="text-7xl text-cream font-medium text-center px-[16.15vw]">
+              {overlayText.lineOne}
+            </p>
+          )}
+          {overlayText.lineTwo && (
+            <p className="text-7xl text-cream font-medium text-center px-[16.15vw] mt-4">
+              {overlayText.lineTwo}
+            </p>
+          )}
         </div>
       )}
 

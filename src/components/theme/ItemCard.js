@@ -17,7 +17,7 @@ export const ItemCard = ({
 
   return (
     <div className="w-full max-w-md h-[137px] flex bg-cream rounded-[10px] p-4">
-      <div className="w-[100px] h-[100px] border border-[#7A3434] rounded flex items-center justify-center">
+      <div className="w-[100px] h-[100px] rounded flex items-center justify-center">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -34,7 +34,7 @@ export const ItemCard = ({
           <h2 className="text-charcoal text-md font-medium">
             {title} {subtitle}
           </h2>
-          <p className="text-charcoal text-sm mt-4">${price}</p>
+          <p className="text-charcoal text-sm mt-4">{price}</p>
         </div>
         <button
           onClick={() => removeFromCart(id)}

@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-export const ContentDropdown = () => {
+export const ContentDropdown = ({
+  name,
+  ingredients,
+  contents,
+  nutritionFacts,
+  warnings,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleCard = () => {
@@ -44,30 +50,28 @@ export const ContentDropdown = () => {
           <div className="w-full bg-charcoal text-cream p-[50px] rounded-b-[18px] shadow-md border-2 border-cream border-t-0 grid grid-cols-3 gap-4">
             <div className="col-span-2">
               <h3 className="text-cream text-[40px] font-semibold mb-[85px]">
-                bloom
+                {name}
               </h3>
               <p className="text-[15px] mb-[85px]">
                 <p className="text-[15px] text-cream font-bold inline mr-1 ">
                   Ingredients:
                 </p>
-                Carbonated Water, Pea Protein, Natural Flavors, Citric Acid,
-                Vitamin D (Cholecalciferol), Vitamin B12 (Cyanocobalamin), Lemon
-                Juice, Tangerine Extract.
+                {ingredients}
               </p>
               <p className="text-[15px] mb-[18px]">
                 <p className="text-[15px] text-cream font-bold inline mr-1 ">
                   Contains:
                 </p>
-                2.5MG THC, 5MG CBD, and 5MG minor cannabinoids from
-                full-spectrum hemp extract.
+                {contents}
               </p>
-              <p className="text-[15px]">
-                <p className="text-[15px] text-cream font-bold inline mr-1">
-                  Warning:
+              {warnings && (
+                <p className="text-[15px]">
+                  <p className="text-[15px] text-cream font-bold inline mr-1">
+                    Warning:
+                  </p>
+                  {warnings}
                 </p>
-                This product is not recommended for children, people pregnant or
-                breastfeeding, or caffeine-sensitive individuals.
-              </p>
+              )}
             </div>
             <div className="flex justify-center items-center">
               <div className="w-full h-full bg-cream flex justify-center items-center text-charcoal border-2 border-cream">
