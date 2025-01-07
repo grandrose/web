@@ -5,7 +5,10 @@ import BlossomGradient from "../assets/backgrounds/blossom-secondary-gradient-gr
 import GRIconGarnet from "../assets/icons/GR-logo-garnet.png";
 import defaultCans from "../assets/temp/cans-small.png";
 import template1240x320 from "../assets/temp/dummy_1240x320.png";
-import { IngredientSection } from "../components/common";
+import {
+  IngredientSection,
+  IngredientsNutritionModal,
+} from "../components/common";
 import {
   Button,
   EmailSubmission,
@@ -30,6 +33,9 @@ export const Shop = () => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Modal visibility for ingredients/nutrition facts
+  const [showNutritionModal, setShowNutritionModal] = useState(false);
+
   /**
    * On first render, decide which product user wants (bloom or blossom) from the URL,
    * and then pre-fetch both bloom + blossom to keep them in local cache.
@@ -46,10 +52,13 @@ export const Shop = () => {
           fetchProduct("bloom"),
           fetchProduct("blossom"),
         ]);
+
         // transform and store them in cache
+        const bloomTransformed = transformProductData(bloomData);
+        const blossomTransformed = transformProductData(blossomData);
         setCachedProducts({
-          bloom: transformProductData(bloomData),
-          blossom: transformProductData(blossomData),
+          bloom: bloomTransformed,
+          blossom: blossomTransformed,
         });
         setLoading(false);
       } catch (err) {
@@ -108,19 +117,30 @@ export const Shop = () => {
   if (loading) return <Loader />;
   if (!productData) return <div>Product not found</div>;
 
+  // Extract your product's custom fields:
+  const {
+    title,
+    description,
+    images,
+    background,
+    ingredients,
+    nutritionFacts,
+    shippingLocations,
+  } = productData;
+
   return (
     <>
       <div
         className={`px-[16.15vw] flex flex-col items-center justify-center transition-all duration-200 ${
-          productData.background || defaultTheme
+          background || defaultTheme
         }`}
       >
         <section className="flex flex-col md:flex-row gap-14 py-12 w-full">
           {/* LEFT COLUMN: Product Image */}
           <div className="w-full md:w-1/2 flex flex-col items-center border border-cream rounded-lg justify-center p-4">
             <img
-              src={productData.images?.[0]}
-              alt={productData.title}
+              src={images?.[0]}
+              alt={title}
               className="w-full max-w-[675px] h-auto object-contain mb-4 transition-all duration-200"
             />
           </div>
@@ -128,7 +148,7 @@ export const Shop = () => {
           {/* RIGHT COLUMN: Product Content */}
           <div className="w-full md:w-1/2">
             <div className="flex items-center mb-6">
-              <h2 className="text-[80px] leading-none">{productData.title}</h2>
+              <h2 className="text-[80px] leading-none">{title}</h2>
               <div className="ml-4 -translate-y-6 -translate-x-2">
                 <img
                   src={GRIconGarnet}
@@ -138,7 +158,7 @@ export const Shop = () => {
               </div>
             </div>
 
-            <p className="text-[20px] mb-8">{productData.description}</p>
+            <p className="text-[20px] mb-8">{description}</p>
             <hr className="mt-8 border-[rgba(248,241,241,0.1)]" />
 
             <div className="flex gap-12 my-4 mb-12">
@@ -157,9 +177,13 @@ export const Shop = () => {
             </div>
 
             <p className="text-[20px] mb-4">12 fl oz / 355 mL per can</p>
-            <p className="text-[20px] mb-8">{productData.shippingLocations}</p>
+            <p className="text-[20px] mb-8">{shippingLocations}</p>
 
-            <button className="text-[20px] font-bold pb-24">
+            {/* Show modal on click */}
+            <button
+              className="text-[20px] font-bold pb-24"
+              onClick={() => setShowNutritionModal(true)}
+            >
               See Ingredients & Nutrition Facts
             </button>
 
@@ -205,18 +229,20 @@ export const Shop = () => {
           <ProductGif />
         </div>
       </section>
+
+      {/* MODAL (conditionally rendered) */}
+      {showNutritionModal && (
+        <IngredientsNutritionModal
+          productName={title}
+          ingredients={ingredients}
+          nutritionFacts={nutritionFacts}
+          onClose={() => setShowNutritionModal(false)}
+        />
+      )}
     </>
   );
 };
 
-/**
- * BlossomHero Component
- *
- * (optional) If you want instant navigation to Blossom,
- * you can rely on the pre-fetched data in Shop.
- * As soon as the user navigates to "?product=blossom",
- * the Shop component will instantly render from cache.
- */
 const BlossomHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
