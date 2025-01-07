@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useCustomer } from "../../context/CustomerContext";
-import { Button } from "../theme";
 import { Cart } from "./Cart";
 import { Login } from "./Login";
+import logoSnow from "../../assets/images/gr-logo-primary-snow.png";
+import { cartLight, userDark, userLight } from "../../assets/icons";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -36,47 +36,104 @@ export const Navbar = () => {
   return (
     <>
       <nav
-        className="bg-charcoal text-cream flex items-center justify-between px-[50px] py-[20px] fixed top-0 left-0 w-full z-50 border-b"
+        className="bg-dark text-cream flex items-center justify-between px-[16.15vw] py-[20px] fixed top-0 left-0 w-full z-50"
         style={{ borderColor: "rgba(248, 241, 241, 0.08)" }}
       >
-        <div className="flex items-center space-x-4">
-          <Button
-            variant="default"
-            onClick={() => navigate("/shop")}
-            className="ml-[50px] font-medium"
+        {/* Left Section */}
+        <div className="flex items-center text-xl gap-[50px] text-cream font-medium">
+          <span
+            className={`relative hover:cursor-pointer group ${
+              location.pathname === "/shop" ? "underline-active" : ""
+            }`}
+            onClick={() => {
+              navigate("/shop");
+            }}
           >
-            SHOP
-          </Button>
-          <Button variant="default" onClick={() => navigate("/locate")}>
-            LOCATE
-          </Button>
+            shop
+            <span
+              className={`absolute left-0 -bottom-0 h-[2px] w-full bg-current origin-left transition-transform duration-300 ${
+                location.pathname === "/shop" ? "scale-x-100" : "scale-x-0"
+              } group-hover:scale-x-100`}
+            ></span>
+          </span>
+          <span
+            className={`relative hover:cursor-pointer group ${
+              location.pathname === "/locate" ? "underline-active" : ""
+            }`}
+            onClick={() => {
+              navigate("/locate");
+            }}
+          >
+            locate
+            <span
+              className={`absolute left-0 -bottom-0 h-[2px] w-full bg-current origin-left transition-transform duration-300 ${
+                location.pathname === "/locate" ? "scale-x-100" : "scale-x-0"
+              } group-hover:scale-x-100`}
+            ></span>
+          </span>
+          <span
+            className={`relative hover:cursor-pointer group ${
+              location.pathname === "/about" ? "underline-active" : ""
+            }`}
+            onClick={() => {
+              navigate("/about");
+            }}
+          >
+            about
+            <span
+              className={`absolute left-0 -bottom-0 h-[2px] w-full bg-current origin-left transition-transform duration-300 ${
+                location.pathname === "/about" ? "scale-x-100" : "scale-x-0"
+              } group-hover:scale-x-100`}
+            ></span>
+          </span>
         </div>
 
+        {/* Center Section - Logo */}
         <div
-          className="text-[50px] font-bold hover:text-rose transition-all duration-200 cursor-pointer"
+          className="absolute left-1/2 transform -translate-x-1/2 text-[50px] font-bold hover:text-rose transition-all duration-200 cursor-pointer"
           onClick={() => {
-            navigate("/home");
+            navigate("/");
           }}
         >
-          grand rose
+          <img className="max-w-[200px] h-auto" src={logoSnow} alt="Logo" />
         </div>
 
+        {/* Right Section */}
         <div className="flex items-center space-x-4">
-          <Button variant="default" onClick={() => navigate("/about")}>
-            ABOUT
-          </Button>
-          <Button
-            variant="default"
+          {/* Cart Icon */}
+          <button
             onClick={toggleCart}
-            className="mr-[50px] font-medium"
+            className="w-10 h-10 rounded-full flex items-center justify-center"
+            // className="w-10 h-10 rounded-full flex items-center justify-center bg-transparent hover:bg-cream transition-all group"
           >
-            CART
-          </Button>
+            <img
+              src={cartLight}
+              alt="Cart"
+              className="w-[32px] h-[32px] group-hover:hidden"
+            />
+            {/* <img
+              src={cartDark}
+              alt="Cart Hover"
+              className="w-[32px] h-[32px] hidden group-hover:block"
+            /> */}
+          </button>
+
+          {/* Profile Icon */}
           <button
             onClick={profileOnClick}
-            className="bg-cream text-charcoal w-10 h-10 flex items-center justify-center rounded-full hover:bg-transparent hover:text-cream border-2 hover:border-cream transition-all"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-cream transition-all group"
+            // className="w-10 h-10 rounded-full flex items-center justify-center bg-transparent hover:bg-cream transition-all group"
           >
-            <FaUser size={20} />
+            <img
+              src={userLight}
+              alt="User"
+              className="w-[32px] h-[32px] group-hover:hidden"
+            />
+            <img
+              src={userDark}
+              alt="User Hover"
+              className="w-[32px] h-[32px] hidden group-hover:block"
+            />
           </button>
         </div>
       </nav>

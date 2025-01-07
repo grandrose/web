@@ -5,7 +5,7 @@ import { EmailSubmission } from "../theme";
 export const Footer = () => {
   const navigate = useNavigate();
   return (
-    <footer className="bg-charcoal text-cream w-full sm:mt-10">
+    <footer className="bg-dark text-cream w-full sm:mt-10">
       <div className="mx-auto px-4 sm:px-8 lg:px-32 py-4">
         <div className="text-left space-y-4 max-w-lg">
           <h4 className="text-sm font-bold">

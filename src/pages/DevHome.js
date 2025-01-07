@@ -9,7 +9,7 @@ export const DevHome = () => {
     navigate("/playground");
   };
   const handleNavigateHome = () => {
-    navigate("/home");
+    navigate("/");
   };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-charcoal text-cream">
