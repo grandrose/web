@@ -17,7 +17,10 @@ export const ItemCard = ({
 
   return (
     <div className="w-full max-w-md h-[137px] flex bg-cream rounded-[10px] p-4">
-      <div className="w-[100px] h-[100px] rounded flex items-center justify-center">
+      <div
+        className="w-[100px] h-[100px] rounded flex items-center justify-center"
+        style={{ backgroundColor: "rgba(217, 217, 217, 1)" }}
+      >
         {imageUrl ? (
           <img
             src={imageUrl}

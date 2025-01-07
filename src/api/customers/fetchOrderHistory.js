@@ -12,7 +12,6 @@ export const fetchOrderHistory = async (accessToken) => {
     }
 
     const data = await response.json();
-    console.log("DATA", data);
     return data.orders;
   } catch (error) {
     console.error("Error fetching order history:", error.message);

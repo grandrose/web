@@ -52,10 +52,20 @@ export const Customer = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-charcoal text-cream px-[16.15vw] py-12">
+    <div
+      // Changed from `flex` to `flex-col md:flex-row` for mobile stacking
+      className="flex flex-col md:flex-row min-h-screen bg-charcoal text-cream
+                 px-6 md:px-[16.15vw] py-6 md:py-12 gap-8"
+    >
       {/* Sidebar */}
-      <aside className="w-1/3">
-        <ul className="space-y-6 text-[25px] font-medium hover:cursor-pointer">
+      <aside
+        // Full width on mobile, 1/3 on desktop
+        className="w-full md:w-1/3"
+      >
+        <ul
+          // Smaller text on mobile, bigger on desktop
+          className="space-y-4 md:space-y-6 text-base md:text-[25px] font-medium hover:cursor-pointer"
+        >
           {[
             "Manage Subscription",
             "Order History",
@@ -71,13 +81,22 @@ export const Customer = () => {
             </li>
           ))}
         </ul>
-        <Button className="mt-8 px-4" onClick={handleLogout} variant="danger">
+        <Button
+          className="mt-6 md:mt-8 px-4"
+          onClick={handleLogout}
+          variant="danger"
+        >
           Logout
         </Button>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 text-[20px]">{renderContent()}</main>
+      <main
+        // Slightly smaller base text on mobile
+        className="flex-1 text-base md:text-[20px]"
+      >
+        {renderContent()}
+      </main>
     </div>
   );
 };

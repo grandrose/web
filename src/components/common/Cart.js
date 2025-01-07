@@ -52,7 +52,7 @@ export const Cart = ({ isModalOpen, toggleModal }) => {
                   <p className="text-sm font-medium">
                     items ({cart.lineItems.length})
                   </p>
-                  <button onClick={toggleModal} className=" text-charcoal">
+                  <button onClick={toggleModal} className="text-charcoal">
                     <IoClose size={24} />
                   </button>
                 </div>
@@ -78,17 +78,44 @@ export const Cart = ({ isModalOpen, toggleModal }) => {
                 </div>
                 {/* border-t border-charcoal  if we need the line back */}
                 <div className="pt-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <p className="text-sm font-semibold">total</p>
-                    <p className="text-lg font-bold">
-                      {formatPrice(cart.totalPrice.amount) || 0}
-                    </p>
+                  <div className="flex flex-col gap-2 mb-4">
+                    {/* Subtotal */}
+                    <div className="flex justify-between items-center">
+                      <p className="text-sm font-semibold">subtotal</p>
+                      <p className="text-sm">
+                        {formatPrice(cart?.lineItemsSubtotalPrice?.amount || 0)}
+                      </p>
+                    </div>
+                    {/* Discount (optional) */}
+                    <div className="flex justify-between items-center">
+                      <p className="text-sm font-semibold">discount</p>
+                      <p className="text-sm">
+                        {/* Subtotal minus final total */}
+                        {formatPrice(
+                          (cart?.lineItemsSubtotalPrice?.amount || 0) -
+                            (cart?.totalPrice?.amount || 0)
+                        )}
+                      </p>
+                    </div>
+                    {/* Final total */}
+                    <hr className="border-charcoal" />
+                    <div className="flex justify-between items-center">
+                      <p className="text-sm font-semibold">total*</p>
+                      <p className="text-lg font-bold">
+                        {formatPrice(cart?.totalPrice?.amount || 0)}
+                      </p>
+                    </div>
                   </div>
+
                   <CoreButton
                     label="CHECKOUT"
                     onClick={handleCheckout}
                     variant="light"
                   />
+                  <p className="text-xs text-center mt-2">
+                    *This total represents the sum of the items in your cart
+                    before taxes, shipping, and other applicable charges.
+                  </p>
                 </div>
               </>
             ) : (

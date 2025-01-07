@@ -16,43 +16,77 @@ export default async function handler(req, res) {
     process.env.REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
   const query = `
-    query customerOrders($accessToken: String!) {
-      customer(customerAccessToken: $accessToken) {
-        orders(first: 10) {
-          edges {
-            node {
-              id
-              name
-              orderNumber
-              processedAt
-              fulfillmentStatus
-              financialStatus
-              totalPriceV2 {
-                amount
-                currencyCode
+query customerOrders($accessToken: String!) {
+  customer(customerAccessToken: $accessToken) {
+    orders(first: 10) {
+      edges {
+        node {
+          id
+          name
+          orderNumber
+          processedAt
+          fulfillmentStatus
+          financialStatus
+          totalPriceV2 {
+            amount
+            currencyCode
+          }
+          shippingAddress {
+            address1
+            address2
+            city
+            province
+            country
+            zip
+          }
+
+          # discountApplications (no "type" field)
+          discountApplications(first: 10) {
+            edges {
+              node {
+                __typename
+                allocationMethod
+                targetSelection
+                targetType
+                value {
+                  __typename
+                  ... on PricingPercentageValue {
+                    percentage
+                  }
+                  ... on MoneyV2 {
+                    amount
+                    currencyCode
+                  }
+                }
+                ... on DiscountCodeApplication {
+                  code
+                  applicable
+                }
+                ... on ManualDiscountApplication {
+                  title
+                }
+                ... on AutomaticDiscountApplication {
+                  title
+                }
+                ... on ScriptDiscountApplication {
+                  title
+                }
               }
-              shippingAddress {
-                address1
-                address2
-                city
-                province
-                country
-                zip
-              }
-              lineItems(first: 10) {
-                edges {
-                  node {
-                    title
-                    quantity
-                    variant {
-                      price {
-                        amount
-                        currencyCode
-                      }
-                      image {
-                        src
-                      }
-                    }
+            }
+          }
+
+          lineItems(first: 50) {
+            edges {
+              node {
+                title
+                quantity
+                variant {
+                  price {
+                    amount
+                    currencyCode
+                   }
+                    image {
+                      src
                   }
                 }
               }
@@ -61,6 +95,8 @@ export default async function handler(req, res) {
         }
       }
     }
+  }
+}
   `;
 
   try {
@@ -82,7 +118,8 @@ export default async function handler(req, res) {
     const result = await response.json();
 
     if (response.ok && result.data) {
-      const orders = result.data.customer.orders.edges.map((edge) => edge.node);
+      const orders =
+        result.data.customer?.orders?.edges?.map((edge) => edge.node) || [];
       res.status(200).json({ orders });
     } else {
       throw new Error(
