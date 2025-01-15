@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 export const Documents = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const section = location.state?.section || "terms-of-service";
+  const [section, setSection] = useState("document-1");
 
   useEffect(() => {
     window.scrollTo({
@@ -53,40 +50,37 @@ export const Documents = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/4 bg-rose text-cream p-6">
+    <div
+      className="flex flex-col md:flex-row min-h-screen bg-charcoal text-cream
+                 px-6 md:px-[16.15vw] py-6 md:py-12 gap-8"
+    >
+      <aside className="w-full md:w-1/3">
         <h2 className="text-3xl font-semibold mb-4 flex justify-center underline">
           Documents
         </h2>
-        <ul className="space-y-4">
+        <ul className="space-y-6 md:space-y-16 text-base md:text-[25px] hover:cursor-pointer">
           <li
-            className={`cursor-pointer ${
-              section === "document-1" ? "font-bold" : ""
+            className={`${
+              section === "document-1" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/documents", { state: { section: "document-1" } })
-            }
+            onClick={() => setSection("document-1")}
           >
             Document 1.pdf
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "document-2" ? "font-bold" : ""
+            className={`${
+              section === "document-2" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/documents", { state: { section: "document-2" } })
-            }
+            onClick={() => setSection("document-2")}
           >
             Document 2.pdf
-            <hr className="my-1 border-cream opacity-50" />
           </li>
         </ul>
-      </div>
+      </aside>
 
-      <div className="w-3/4 p-6">
-        <div className="text-center text-cream mt-6">{renderDocuments()}</div>
-      </div>
+      <main className="flex-1 text-base md:text-[20px]">
+        {renderDocuments()}
+      </main>
     </div>
   );
 };

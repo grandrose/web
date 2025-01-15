@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 export const Policies = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const section = location.state?.section || "terms-of-service";
+  const [section, setSection] = useState("terms-of-service");
 
   useEffect(() => {
     window.scrollTo({
@@ -12,6 +9,7 @@ export const Policies = () => {
       behavior: "smooth",
     });
   }, [section]);
+
   const renderPolicyContent = () => {
     switch (section) {
       case "privacy-policy":
@@ -66,79 +64,58 @@ export const Policies = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/4 bg-rose text-cream p-6">
-        <h2 className="text-3xl font-semibold mb-4 flex justify-center underline">
-          Policies & Statements
-        </h2>
-        <ul className="space-y-4">
+    <div
+      className="flex flex-col md:flex-row min-h-screen bg-charcoal text-cream
+                 px-6 md:px-[16.15vw] py-6 md:py-12 gap-8"
+    >
+      <aside className="w-full md:w-1/3">
+        <ul className="space-y-6 md:space-y-16 text-base md:text-[25px] hover:cursor-pointer">
           <li
-            className={`cursor-pointer ${
-              section === "terms-of-service" ? "font-bold" : ""
+            className={`${
+              section === "terms-of-service" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", { state: { section: "terms-of-service" } })
-            }
+            onClick={() => setSection("terms-of-service")}
           >
             Terms of Service
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "privacy-policy" ? "font-bold" : ""
+            className={`${
+              section === "privacy-policy" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", { state: { section: "privacy-policy" } })
-            }
+            onClick={() => setSection("privacy-policy")}
           >
             Privacy Policy
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "refund-policy" ? "font-bold" : ""
+            className={`${
+              section === "refund-policy" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", { state: { section: "refund-policy" } })
-            }
+            onClick={() => setSection("refund-policy")}
           >
             Refund Policy
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "accessibility-statement" ? "font-bold" : ""
+            className={`${
+              section === "accessibility-statement" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", {
-                state: { section: "accessibility-statement" },
-              })
-            }
+            onClick={() => setSection("accessibility-statement")}
           >
             Accessibility Statement
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "shipping-policy" ? "font-bold" : ""
+            className={`${
+              section === "shipping-policy" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", {
-                state: { section: "shipping-policy" },
-              })
-            }
+            onClick={() => setSection("shipping-policy")}
           >
             Shipping Policy
-            <hr className="my-1 border-cream opacity-50" />
           </li>
         </ul>
-      </div>
+      </aside>
 
-      <div className="w-3/4 p-6">
-        <div className="text-center text-cream mt-6">
-          {renderPolicyContent()}
-        </div>
-      </div>
+      <main className="flex-1 text-base md:text-[20px]">
+        {renderPolicyContent()}
+      </main>
     </div>
   );
 };
