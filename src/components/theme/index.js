@@ -14,3 +14,4 @@ export { Section } from "./Section";
 export { StoreCard } from "./StoreCard";
 export { OrderItemCard } from "./OrderItemCard";
 export { MediaBar } from "./MediaBar";
+export { Hero } from "./Hero";

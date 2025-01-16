@@ -77,14 +77,13 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    // Safely access metafields
     const metafields =
       product.metafields?.reduce((acc, field) => {
         if (field?.key && field?.value) {
           acc[field.key] = field.value;
         }
         return acc;
-      }, {}) || {}; // Fallback to an empty object
+      }, {}) || {};
 
     const simplifiedProduct = {
       id: product.id,

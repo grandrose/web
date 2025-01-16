@@ -7,14 +7,9 @@ import {
 import defaultCans from "../assets/temp/cans-small.png";
 import TemplateVideo from "../assets/temp/template-video.mp4";
 import template1240x320 from "../assets/temp/dummy_1240x320.png";
-import {
-  FullscreenMedia,
-  PPPMarquee,
-  Section,
-  MediaBar,
-} from "../components/theme";
+import { FullscreenMedia, PPPMarquee, Section, MediaBar, Hero } from "@theme";
 import "./styles/Highlight.css";
-import { NutritionSection, IngredientSection } from "../components/common";
+import { NutritionSection, IngredientSection } from "@components";
 
 export const Home = () => {
   return (
@@ -31,10 +26,19 @@ export const Home = () => {
         <section className="py-[32px]">
           <PPPMarquee />
         </section>
-        <Hero />
+        <Hero
+          showOrderButton
+          customMessage="A functional-dose cannabis beverage developed to elevate active experiences and amplify recovery."
+          boldWords={["functionaldose", "amplify"]}
+        />
         <MediaBar src={template1240x320} />
         <IngredientSection />
-        <Hero2 />
+        <Hero
+          showOrderButton
+          reversed
+          customMessage="Experience the sensation, curated to ignite human performance."
+        />
+        {/* <Hero2 /> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 gap-x-8 text-left text-4xl py-32 px-8">
           <div className="lg:max-w-[570px]">
             <p>
@@ -83,97 +87,97 @@ export const Home = () => {
   );
 };
 
-const Hero = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const navigate = useNavigate();
-  const images = [defaultCans, defaultCans, defaultCans];
+// const Hero = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const navigate = useNavigate();
+//   const images = [defaultCans, defaultCans, defaultCans];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 3000);
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setCurrentSlide((prev) => (prev + 1) % images.length);
+//     }, 3000);
 
-    return () => clearInterval(interval);
-  }, [images.length]);
+//     return () => clearInterval(interval);
+//   }, [images.length]);
 
-  return (
-    <section className="text-cream flex items-center justify-center flex-wrap min-h-[800px]">
-      <div className="flex items-center justify-center w-full md:w-[55%] h-auto md:h-[800px] p-4 md:p-8 bg-charcoal">
-        <div className="rounded-lg overflow-hidden w-[90%] md:w-[700px] md:h-[700px]">
-          <img
-            src={images[currentSlide]}
-            alt={`Slide ${currentSlide + 1}`}
-            className="object-contain w-full h-full"
-          />
-        </div>
-      </div>
-      <div
-        className="flex flex-col justify-between w-full md:w-[45%] h-auto md:h-[800px] p-6 md:p-12 bg-cover bg-no-repeat bg-center"
-        style={{ backgroundImage: `url(${primaryGradiant})` }}
-      >
-        <div className="flex flex-col justify-center flex-grow p-12">
-          <h1 className="text-xl md:text-4xl lg:text-[40px] font-light leading-tight text-center md:text-left">
-            A <span className="font-medium">functional-dose</span> cannabis
-            beverage developed to <span className="font-medium">elevate</span>{" "}
-            active experiences and <span className="font-medium">amplify</span>{" "}
-            recovery.
-          </h1>
-        </div>
-        <div className="mt-6 md:mt-0 p-12">
-          <button
-            onClick={() => navigate("/shop")}
-            className="py-2 px-6 border-2 border-cream rounded-full text-lg md:text-xl font-medium hover:bg-cream hover:text-charcoal transition"
-          >
-            ORDER NOW
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
+//   return (
+//     <section className="text-cream flex items-center justify-center flex-wrap min-h-[800px]">
+//       <div className="flex items-center justify-center w-full md:w-[55%] h-auto md:h-[800px] p-4 md:p-8 bg-charcoal">
+//         <div className="rounded-lg overflow-hidden w-[90%] md:w-[700px] md:h-[700px]">
+//           <img
+//             src={images[currentSlide]}
+//             alt={`Slide ${currentSlide + 1}`}
+//             className="object-contain w-full h-full"
+//           />
+//         </div>
+//       </div>
+//       <div
+//         className="flex flex-col justify-between w-full md:w-[45%] h-auto md:h-[800px] p-6 md:p-12 bg-cover bg-no-repeat bg-center"
+//         style={{ backgroundImage: `url(${primaryGradiant})` }}
+//       >
+//         <div className="flex flex-col justify-center flex-grow p-12">
+//           <h1 className="text-xl md:text-4xl lg:text-[40px] font-light leading-tight text-center md:text-left">
+//             A <span className="font-medium">functional-dose</span> cannabis
+//             beverage developed to <span className="font-medium">elevate</span>{" "}
+//             active experiences and <span className="font-medium">amplify</span>{" "}
+//             recovery.
+//           </h1>
+//         </div>
+//         <div className="mt-6 md:mt-0 p-12">
+//           <button
+//             onClick={() => navigate("/shop")}
+//             className="py-2 px-6 border-2 border-cream rounded-full text-lg md:text-xl font-medium hover:bg-cream hover:text-charcoal transition"
+//           >
+//             ORDER NOW
+//           </button>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
 
-const Hero2 = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const navigate = useNavigate();
-  const images = [defaultCans, defaultCans, defaultCans];
+// const Hero2 = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const navigate = useNavigate();
+//   const images = [defaultCans, defaultCans, defaultCans];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 3000);
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setCurrentSlide((prev) => (prev + 1) % images.length);
+//     }, 3000);
 
-    return () => clearInterval(interval);
-  }, [images.length]);
+//     return () => clearInterval(interval);
+//   }, [images.length]);
 
-  return (
-    <section className="text-cream flex items-center justify-center flex-wrap min-h-[800px]">
-      <div
-        className="flex flex-col justify-between w-full md:w-[45%] h-auto md:h-[800px] p-6 md:p-12 bg-cover bg-no-repeat bg-center"
-        style={{ backgroundImage: `url(${primaryGradiant})` }}
-      >
-        <div className="flex flex-col justify-center flex-grow p-12">
-          <h1 className="text-xl md:text-4xl lg:text-[50px] font-light leading-tight text-center md:text-left">
-            Experience the sensation, curated to ignite human performance.
-          </h1>
-        </div>
-        <div className="mt-6 md:mt-0 p-12">
-          <button
-            onClick={() => navigate("/shop")}
-            className="py-2 px-6 border-2 border-cream rounded-full text-lg md:text-xl font-medium hover:bg-cream hover:text-charcoal transition"
-          >
-            ORDER NOW
-          </button>
-        </div>
-      </div>
-      <div className="flex items-center justify-center w-full md:w-[55%] h-auto md:h-[800px] p-4 md:p-8 bg-charcoal">
-        <div className="rounded-lg overflow-hidden w-[90%] md:w-[700px] md:h-[700px]">
-          <img
-            src={images[currentSlide]}
-            alt={`Slide ${currentSlide + 1}`}
-            className="object-contain w-full h-full"
-          />
-        </div>
-      </div>
-    </section>
-  );
-};
+//   return (
+//     <section className="text-cream flex items-center justify-center flex-wrap min-h-[800px]">
+//       <div
+//         className="flex flex-col justify-between w-full md:w-[45%] h-auto md:h-[800px] p-6 md:p-12 bg-cover bg-no-repeat bg-center"
+//         style={{ backgroundImage: `url(${primaryGradiant})` }}
+//       >
+//         <div className="flex flex-col justify-center flex-grow p-12">
+//           <h1 className="text-xl md:text-4xl lg:text-[50px] font-light leading-tight text-center md:text-left">
+//             Experience the sensation, curated to ignite human performance.
+//           </h1>
+//         </div>
+//         <div className="mt-6 md:mt-0 p-12">
+//           <button
+//             onClick={() => navigate("/shop")}
+//             className="py-2 px-6 border-2 border-cream rounded-full text-lg md:text-xl font-medium hover:bg-cream hover:text-charcoal transition"
+//           >
+//             ORDER NOW
+//           </button>
+//         </div>
+//       </div>
+//       <div className="flex items-center justify-center w-full md:w-[55%] h-auto md:h-[800px] p-4 md:p-8 bg-charcoal">
+//         <div className="rounded-lg overflow-hidden w-[90%] md:w-[700px] md:h-[700px]">
+//           <img
+//             src={images[currentSlide]}
+//             alt={`Slide ${currentSlide + 1}`}
+//             className="object-contain w-full h-full"
+//           />
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };

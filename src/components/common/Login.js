@@ -10,7 +10,8 @@ import { CoreButton } from "../theme";
 export const Login = ({ isModalOpen, toggleModal }) => {
   const navigate = useNavigate();
   const loginRef = useRef(null);
-  const { login, signUp, loginWithGoogle, isLoading } = useCustomer();
+  const { login, signUp, loginOrCreateGoogleCustomer, isLoading } =
+    useCustomer();
   const [isIPhone, setIsIPhone] = useState(false);
   const [isSignupMode, setIsSignupMode] = useState(false);
   const [formError, setFormError] = useState("");
@@ -75,6 +76,7 @@ export const Login = ({ isModalOpen, toggleModal }) => {
     scope: "openid profile email",
     onSuccess: async (response) => {
       try {
+        // 1) Get the Google user info
         const { data: googleUser } = await axios.get(
           "https://www.googleapis.com/oauth2/v3/userinfo",
           {
@@ -85,19 +87,23 @@ export const Login = ({ isModalOpen, toggleModal }) => {
         );
 
         const { email } = googleUser;
-
         if (!email) {
           throw new Error("Failed to retrieve email from Google OAuth.");
         }
 
-        await loginWithGoogle(email, response.access_token);
+        // 2) Now handle "shopify logic" in our context
+        await loginOrCreateGoogleCustomer(email, response.access_token);
+
+        // 3) If everything is good, close the modal
         setFormError("");
         toggleModal();
       } catch (error) {
+        console.error(error);
         setFormError("Google login failed. Please try again.");
       }
     },
     onError: (error) => {
+      console.error(error);
       setFormError("Google OAuth failed. Please try again.");
     },
   });

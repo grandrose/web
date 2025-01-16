@@ -26,7 +26,6 @@ export const CartProvider = ({ children }) => {
         }
       } catch (error) {
         console.warn("Old cart ID is invalid or not found:", error);
-        // Clear invalid cart ID from storage
         localStorage.removeItem(existingCartIdKey);
       }
 

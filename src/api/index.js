@@ -9,3 +9,4 @@ export {
   fetchSubscriptions,
 } from "./subscriptions";
 export { fetchProduct } from "./products";
+export { fetchStorePolicies } from "./fetchStorePolicies";

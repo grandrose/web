@@ -79,7 +79,6 @@ export const Profile = () => {
 
       const updatedCustomer = await response.json();
 
-      // Update only the customer data without resetting accessToken
       setCustomerData(updatedCustomer);
       alert("Profile updated successfully!");
     } catch (error) {
