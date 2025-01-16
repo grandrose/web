@@ -1,11 +1,9 @@
+import { cartLight, snowLogo, userDark, userLight } from "@assets";
+import { useCart, useCustomer } from "@context";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../../context/CartContext";
-import { useCustomer } from "../../context/CustomerContext";
 import { Cart } from "./Cart";
 import { Login } from "./Login";
-import logoSnow from "../../assets/images/gr-logo-primary-snow.png";
-import { cartLight, userDark, userLight } from "../../assets/icons";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -95,7 +93,7 @@ export const Navbar = () => {
             navigate("/");
           }}
         >
-          <img className="max-w-[200px] h-auto" src={logoSnow} alt="Logo" />
+          <img className="max-w-[200px] h-auto" src={snowLogo} alt="Logo" />
         </div>
 
         {/* Right Section */}
@@ -111,11 +109,6 @@ export const Navbar = () => {
               alt="Cart"
               className="w-[32px] h-[32px] group-hover:hidden"
             />
-            {/* <img
-              src={cartDark}
-              alt="Cart Hover"
-              className="w-[32px] h-[32px] hidden group-hover:block"
-            /> */}
           </button>
 
           {/* Profile Icon */}

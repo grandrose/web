@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { fetchProduct } from "../api";
-import BlossomGradient from "../assets/backgrounds/blossom-secondary-gradient-gr.png";
-import GRIconGarnet from "../assets/icons/GR-logo-garnet.png";
-import defaultCans from "../assets/temp/cans-small.png";
-import template1240x320 from "../assets/temp/dummy_1240x320.png";
-import {
-  IngredientSection,
-  IngredientsNutritionModal,
-} from "../components/common";
+import { GRIconGarnet } from "@assets";
+import template1240x320 from "@assets/temp/dummy_1240x320.png";
+import { transformProductData } from "@common";
+import { IngredientSection, IngredientsNutritionModal } from "@components";
+import { useCart } from "@context";
 import {
   Button,
   EmailSubmission,
+  Hero,
   Loader,
   MediaBar,
   ProductGif,
-} from "../components/theme";
-import { useCart } from "../context/CartContext";
-import { transformProductData } from "../common";
+} from "@theme";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { fetchProduct } from "../api";
 
 export const Shop = () => {
   const defaultTheme = "bg-charcoal text-cream";
@@ -201,7 +197,14 @@ export const Shop = () => {
       {/* Additional sections below */}
       <MediaBar src={template1240x320} />
       <IngredientSection rose={true} />
-      <BlossomHero />
+      <Hero />
+      <Hero
+        reversed
+        variant="light"
+        showOrderButton
+        text="Sip on Blossom formulated without cannabinoids with the same great benefits."
+        textSize="text-xl md:text-4xl lg:text-[50px]"
+      />
       <section className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-4 sm:px-6 lg:px-32 py-8">
         <div className="flex-1 text-center lg:text-left lg:pl-16">
           <div className="py-16 lg:py-32">
@@ -240,55 +243,5 @@ export const Shop = () => {
         />
       )}
     </>
-  );
-};
-
-const BlossomHero = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const navigate = useNavigate();
-  const images = [defaultCans, defaultCans, defaultCans];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  return (
-    <section className="text-charcoal flex items-center justify-center flex-wrap min-h-[800px]">
-      <div
-        className="flex flex-col justify-between w-full md:w-[45%] h-auto md:h-[800px] p-6 md:p-12 bg-cover bg-no-repeat bg-center"
-        style={{ backgroundImage: `url(${BlossomGradient})` }}
-      >
-        <div className="flex flex-col justify-center flex-grow p-12">
-          <h1
-            className="text-xl md:text-4xl lg:text-[50px] text-center md:text-left"
-            style={{ lineHeight: "1.1" }}
-          >
-            Sip on Blossom formulated without cannabinoids with the same great
-            benefits.
-          </h1>
-        </div>
-        <div className="mt-6 md:mt-0 p-12">
-          <button
-            onClick={() => navigate("/shop?product=blossom")}
-            className="py-2 px-6 border-2 border-charcoal rounded-full text-lg md:text-xl font-medium hover:bg-cream hover:text-charcoal transition"
-          >
-            ORDER NOW
-          </button>
-        </div>
-      </div>
-      <div className="flex items-center justify-center w-full md:w-[55%] h-auto md:h-[800px] p-4 md:p-8 bg-charcoal">
-        <div className="rounded-lg overflow-hidden w-[90%] md:w-[700px] md:h-[700px]">
-          <img
-            src={images[currentSlide]}
-            alt={`Slide ${currentSlide + 1}`}
-            className="object-contain w-full h-full"
-          />
-        </div>
-      </div>
-    </section>
   );
 };

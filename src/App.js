@@ -1,3 +1,16 @@
+import { Footer, MobileNavbar, Navbar } from "@components";
+import { CartProvider, CustomerProvider, useCustomer } from "@context";
+import {
+  About,
+  ComingSoon,
+  Customer,
+  Documents,
+  Home,
+  NotFound,
+  Playground,
+  Policies,
+  Shop,
+} from "@pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import React, { useEffect, useState } from "react";
 import {
@@ -9,20 +22,6 @@ import {
 } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import "./App.css";
-import { Footer, MobileNavbar, Navbar } from "./components/common";
-import { CartProvider } from "./context/CartContext";
-import { CustomerProvider, useCustomer } from "./context/CustomerContext";
-import {
-  About,
-  ComingSoon,
-  Customer,
-  Documents,
-  Home,
-  NotFound,
-  Playground,
-  Policies,
-  Shop,
-} from "./pages";
 
 function App() {
   const [isVerified, setIsVerified] = useState(false);
