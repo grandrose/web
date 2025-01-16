@@ -1,5 +1,6 @@
 export { About } from "./About";
 export { ComingSoon } from "./ComingSoon";
+export { Customer } from "./Customer";
 export { DevHome } from "./DevHome";
 export { Documents } from "./Documents";
 export { Home } from "./Home";
@@ -9,4 +10,3 @@ export { Playground } from "./Playground";
 export { Policies } from "./Policies";
 export { Profile } from "./Profile";
 export { Shop } from "./Shop";
-export { ShopOLD } from "./Shop.old";

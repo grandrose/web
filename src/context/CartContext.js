@@ -10,21 +10,32 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     const initializeCart = async () => {
-      const existingCartId = localStorage.getItem("shopify_cart_id");
-      if (existingCartId) {
-        try {
+      const existingCartIdKey = "shopify_cart_id";
+      const existingCartId = localStorage.getItem(existingCartIdKey);
+
+      try {
+        if (existingCartId) {
           const existingCart = await shopifyClient.checkout.fetch(
             existingCartId
           );
-          setCart(existingCart);
-        } catch (error) {
-          console.error("Failed to fetch existing cart:", error);
-          localStorage.removeItem("shopify_cart_id");
+
+          if (existingCart) {
+            setCart(existingCart);
+            return;
+          }
         }
-      } else {
+      } catch (error) {
+        console.warn("Old cart ID is invalid or not found:", error);
+        localStorage.removeItem(existingCartIdKey);
+      }
+
+      // Create a new cart if no valid cart exists
+      try {
         const newCart = await shopifyClient.checkout.create();
         setCart(newCart);
-        localStorage.setItem("shopify_cart_id", newCart.id);
+        localStorage.setItem(existingCartIdKey, newCart.id);
+      } catch (error) {
+        console.error("Failed to create a new cart:", error);
       }
     };
 

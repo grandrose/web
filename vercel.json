@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/checkout", "destination": "https://iayi85-s0.myshopify.com/checkout" }
+  ],
+  "framework": "create-react-app",
+  "buildCommand": "react-app-rewired build",
+  "devCommand": "react-app-rewired start"
+}

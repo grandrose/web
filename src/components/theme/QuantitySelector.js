@@ -42,7 +42,7 @@ export const QuantitySelector = ({
       >
         -
       </button>
-      <p className="w-12 text-center mx-2 font-extrabold">{quantity}</p>
+      <p className="w-8 text-center font-extrabold">{quantity}</p>
       <button
         onClick={handleIncrement}
         disabled={disabled}

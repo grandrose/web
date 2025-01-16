@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import gradiant from "../assets/backgrounds/gr-core-gradient.png";
-import { Section, StoreCard } from "../components/theme";
+import { StoreCard } from "../components/theme";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
 const mapContainerStyle = {
@@ -46,7 +46,7 @@ export const Locate = () => {
   return (
     <div style={sectionStyles}>
       <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-        <div className="flex h-screen">
+        <div className="flex h-screen px-32">
           <div className="w-1/4 text-cream p-6">
             <h2 className="text-3xl font-semibold mb-4 flex justify-center">
               STORE LOCATOR

@@ -69,9 +69,8 @@ export const About = () => {
             and well-being, while ensuring a balanced experience for all.
           </p>
         </section>
-        <div className="h-[49.5vh] flex items-center justify-center">
-          <h1 className="text-cream font-bold text-xl"></h1>
-          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-16 py-8">
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="flex flex-wrap lg:flex-nowrap items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-16 py-8">
             <Media />
             <Media />
             <Media />
@@ -79,7 +78,7 @@ export const About = () => {
         </div>
       </Section>
       <section className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-16 px-6 lg:px-16 py-16">
-        <div className="flex-1 text-center lg:text-left pl-16">
+        <div className="flex-1 text-center lg:text-left lg:pl-16">
           <div className="py-32">
             <Button className="font-bold text-xl" onClick={handleOrderClick}>
               ORDER NOW

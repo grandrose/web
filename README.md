@@ -59,7 +59,7 @@ Create a `.env` file in the root directory and add the following variables:
 ```plaintext
 REACT_APP_SHOPIFY_STORE_DOMAIN=<your-shopify-store-domain>
 REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN=<your-shopify-storefront-access-token>
-REACT_APP_SHOPIFY_CUSTOMER_ACCESS_TOKEN_KEY=<shpat...shopify-customer-access-token>
+REACT_APP_SHOPIFY_ADMIN_API=<shpat...shopify-customer-access-token>
 REACT_APP_SHOPIFY_CLIENT_ID=<shp... shopify-client-id>
 REACT_APP_LOCATION_ID=<location-id>
 ```

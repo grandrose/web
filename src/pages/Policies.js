@@ -1,10 +1,33 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { fetchStorePolicies } from "../api";
 
 export const Policies = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const section = location.state?.section || "terms-of-service";
+  const [section, setSection] = useState("terms-of-service");
+  const [policies, setPolicies] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const policyMap = {
+    "privacy-policy": "privacyPolicy",
+    "refund-policy": "refundPolicy",
+    "terms-of-service": "termsOfService",
+    "shipping-policy": "shippingPolicy",
+    "accessibility-statement": "accessibilityStatement",
+  };
+
+  useEffect(() => {
+    const loadPolicies = async () => {
+      try {
+        const data = await fetchStorePolicies();
+        setPolicies(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPolicies();
+  }, []);
 
   useEffect(() => {
     window.scrollTo({
@@ -12,133 +35,109 @@ export const Policies = () => {
       behavior: "smooth",
     });
   }, [section]);
-  const renderPolicyContent = () => {
-    switch (section) {
-      case "privacy-policy":
-        return (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
-            <hr className="my-8 border-cream opacity-50" />
-            <p>Your privacy is important to us...</p>
-          </div>
-        );
-      case "terms-of-service":
-        return (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Terms of Service</h1>
-            <hr className="my-8 border-cream opacity-50" />
-            <p>Welcome to our terms of service...</p>
-          </div>
-        );
-      case "refund-policy":
-        return (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Refund Policy</h1>
-            <hr className="my-8 border-cream opacity-50" />
-            <p>Our refund policy is...</p>
-          </div>
-        );
-      case "accessibility-statement":
-        return (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Accessibility Statement</h1>
-            <hr className="my-8 border-cream opacity-50" />
-            <p>Our accessibility statement is...</p>
-          </div>
-        );
-      case "shipping-policy":
-        return (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Shipping Policy</h1>
-            <hr className="my-8 border-cream opacity-50" />
-            <p>Our shipping policy is...</p>
-          </div>
-        );
-      default:
-        return (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Policy Not Found</h1>
-            <hr className="my-8 border-cream opacity-50" />
-            <p>The requested policy could not be found.</p>
-          </div>
-        );
+
+  const renderShopifyPolicy = (policyKey) => {
+    const shopifyPolicy = policies[policyKey];
+
+    if (!shopifyPolicy) {
+      return (
+        <div>
+          <h1 className="text-2xl font-bold mb-4">Policy Not Found</h1>
+          <hr className="my-8 border-cream opacity-50" />
+          <p>The requested policy could not be found.</p>
+        </div>
+      );
     }
+
+    return (
+      <div>
+        <h1 className="text-2xl font-bold mb-4">{shopifyPolicy.title}</h1>
+        <hr className="my-8 border-cream opacity-50" />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: shopifyPolicy.body || "",
+          }}
+        />
+      </div>
+    );
+  };
+
+  const renderPolicyContent = () => {
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+    if (error) {
+      return <p className="text-red-400">Error: {error}</p>;
+    }
+    const policyKey = policyMap[section] || null;
+    if (!policyKey) {
+      return (
+        <div>
+          <h1 className="text-2xl font-bold mb-4">Policy Not Found</h1>
+          <hr className="my-8 border-cream opacity-50" />
+          <p>The requested policy could not be found.</p>
+        </div>
+      );
+    }
+
+    return renderShopifyPolicy(policyKey);
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/4 bg-rose text-cream p-6">
-        <h2 className="text-3xl font-semibold mb-4 flex justify-center underline">
-          Policies & Statements
-        </h2>
-        <ul className="space-y-4">
+    <div
+      className="
+        flex flex-col md:flex-row min-h-screen
+        bg-charcoal text-cream
+        px-6 md:px-[16.15vw] py-6 md:py-12 gap-8
+      "
+    >
+      <aside className="w-full md:w-1/3">
+        <ul className="space-y-6 md:space-y-16 text-base md:text-[25px] cursor-pointer">
           <li
-            className={`cursor-pointer ${
-              section === "terms-of-service" ? "font-bold" : ""
+            className={`${
+              section === "terms-of-service" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", { state: { section: "terms-of-service" } })
-            }
+            onClick={() => setSection("terms-of-service")}
           >
             Terms of Service
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "privacy-policy" ? "font-bold" : ""
+            className={`${
+              section === "privacy-policy" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", { state: { section: "privacy-policy" } })
-            }
+            onClick={() => setSection("privacy-policy")}
           >
             Privacy Policy
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "refund-policy" ? "font-bold" : ""
+            className={`${
+              section === "refund-policy" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", { state: { section: "refund-policy" } })
-            }
+            onClick={() => setSection("refund-policy")}
           >
             Refund Policy
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "accessibility-statement" ? "font-bold" : ""
+            className={`${
+              section === "accessibility-statement" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", {
-                state: { section: "accessibility-statement" },
-              })
-            }
+            onClick={() => setSection("accessibility-statement")}
           >
             Accessibility Statement
-            <hr className="my-1 border-cream opacity-50" />
           </li>
           <li
-            className={`cursor-pointer ${
-              section === "shipping-policy" ? "font-bold" : ""
+            className={`${
+              section === "shipping-policy" ? "font-bold" : "text-cream"
             }`}
-            onClick={() =>
-              navigate("/policies", {
-                state: { section: "shipping-policy" },
-              })
-            }
+            onClick={() => setSection("shipping-policy")}
           >
             Shipping Policy
-            <hr className="my-1 border-cream opacity-50" />
           </li>
         </ul>
-      </div>
-
-      <div className="w-3/4 p-6">
-        <div className="text-center text-cream mt-6">
-          {renderPolicyContent()}
-        </div>
-      </div>
+      </aside>
+      <main className="flex-1 text-base md:text-[20px]">
+        {renderPolicyContent()}
+      </main>
     </div>
   );
 };
