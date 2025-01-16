@@ -85,7 +85,7 @@ export const MobileNavbar = () => {
               <h1
                 className="hover:cursor-pointer"
                 onClick={() => {
-                  toggleCart(); // <-- This calls toggleCart to open/close the mobile cart
+                  toggleCart();
                   setIsMenuOpen(false);
                 }}
               >
@@ -95,8 +95,6 @@ export const MobileNavbar = () => {
           </div>
         )}
       </nav>
-
-      {/* Render the MobileCart at the same level, passing isOpen + toggleCart */}
       <MobileCart isModalOpen={isOpen} toggleModal={toggleCart} />
     </>
   );

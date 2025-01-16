@@ -39,7 +39,6 @@ export const OrderHistory = () => {
     };
   }, [selectedOrder, handleClosePanel]);
 
-  // Fetch & sort from newest to oldest
   useEffect(() => {
     const loadOrders = async () => {
       if (!customer?.accessToken) {
@@ -64,7 +63,6 @@ export const OrderHistory = () => {
   if (error) return <p className="text-red-600">Error: {error}</p>;
 
   return (
-    // More flexible container, so it’s not forced to a large min-height on mobile
     <div className="min-h-screen text-cream p-4 md:p-6 bg-charcoal">
       {orders.length === 0 ? (
         <p>You have no order history.</p>
@@ -83,7 +81,7 @@ export const OrderHistory = () => {
               <div
                 key={order.id}
                 onClick={() => handleOpenPanel(order)}
-                className="bg-cream text-charcoal rounded-lg shadow-md p-4
+                className="bg-cream text-charcoal rounded-sm shadow-md p-4
                            hover:cursor-pointer flex gap-4 items-center
                            max-w-[800px] mx-auto text-base md:text-[20px]"
               >
@@ -130,12 +128,6 @@ export const OrderHistory = () => {
 
       {selectedOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-          {/*
-      Outer container:
-      - By default (mobile), items are aligned to the bottom (items-end).
-      - On md+ screens, we center vertically (items-center).
-      - We also center horizontally with justify-center.
-    */}
           <div className="w-full h-full flex items-end md:items-center justify-center">
             <div
               ref={orderRef}
@@ -176,11 +168,6 @@ export const OrderHistory = () => {
                 min-h-[400px]
               `}
             >
-              {/*
-                CLOSE BUTTON
-                - Absolutely positioned at top-right corner
-                - Works for both mobile and desktop
-              */}
               <button
                 onClick={handleClosePanel}
                 className="absolute top-4 right-4 text-charcoal"
@@ -240,7 +227,6 @@ export const OrderHistory = () => {
 
               {/* CENTER COLUMN */}
               <div className="flex flex-col items-center mt-8 md:mt-0">
-                {/* Logo icon, 25x25, centered */}
                 <div className="mb-2">
                   <img
                     src={LogoIcon}
@@ -297,11 +283,6 @@ export const OrderHistory = () => {
   );
 };
 
-/**
- * ============================================
- * OrderHistoryCard
- * ============================================
- */
 const OrderHistoryCard = ({
   title,
   subtitle,
@@ -367,12 +348,6 @@ const OrderHistoryCard = ({
     </div>
   );
 };
-
-/**
- * ============================================
- * FallbackImage
- * ============================================
- */
 const FallbackImage = ({ src, alt, fallback, className = "" }) => {
   const [loaded, setLoaded] = React.useState(false);
   const [errored, setErrored] = React.useState(false);
@@ -391,11 +366,6 @@ const FallbackImage = ({ src, alt, fallback, className = "" }) => {
   );
 };
 
-/**
- * ============================================
- * PricingSection
- * ============================================
- */
 const PricingSection = ({ selectedOrder }) => {
   if (!selectedOrder) return null;
 

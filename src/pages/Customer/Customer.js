@@ -53,19 +53,11 @@ export const Customer = () => {
 
   return (
     <div
-      // Changed from `flex` to `flex-col md:flex-row` for mobile stacking
       className="flex flex-col md:flex-row min-h-screen bg-charcoal text-cream
                  px-6 md:px-[16.15vw] py-6 md:py-12 gap-8"
     >
-      {/* Sidebar */}
-      <aside
-        // Full width on mobile, 1/3 on desktop
-        className="w-full md:w-1/3"
-      >
-        <ul
-          // Smaller text on mobile, bigger on desktop
-          className="space-y-4 md:space-y-6 text-base md:text-[25px] font-medium hover:cursor-pointer"
-        >
+      <aside className="w-full md:w-1/3">
+        <ul className="space-y-6 md:space-y-16 text-base md:text-[25px] hover:cursor-pointer">
           {[
             "Manage Subscription",
             "Order History",
@@ -82,7 +74,7 @@ export const Customer = () => {
           ))}
         </ul>
         <Button
-          className="mt-6 md:mt-8 px-4"
+          className="mt-8 md:mt-24 px-12 py-2"
           onClick={handleLogout}
           variant="danger"
         >
@@ -91,12 +83,7 @@ export const Customer = () => {
       </aside>
 
       {/* Main Content */}
-      <main
-        // Slightly smaller base text on mobile
-        className="flex-1 text-base md:text-[20px]"
-      >
-        {renderContent()}
-      </main>
+      <main className="flex-1 text-base md:text-[20px]">{renderContent()}</main>
     </div>
   );
 };
