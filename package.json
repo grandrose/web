@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test"
   },
   "eslintConfig": {
     "extends": [
@@ -52,7 +51,9 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "customize-cra": "^1.0.0",
     "postcss": "^8.4.49",
+    "react-app-rewired": "^2.2.1",
     "tailwindcss": "^3.4.15"
   }
 }
