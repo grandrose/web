@@ -2,6 +2,7 @@ export {
   fetchOrderHistory,
   updateCustomerDetails,
   fetchCustomerDetails,
+  fetchOrderDetails,
 } from "./customers";
 export {
   cancelSubscription,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { fetchOrderHistory } from "../../../api/";
+import { fetchOrderHistory, fetchOrderDetails } from "@api";
 import { useCustomer } from "../../../context/CustomerContext";
 import { Loader } from "../../../components/theme";
 import { formatPrice } from "../../../common";
@@ -11,15 +11,24 @@ export const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const orderRef = useRef(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState(null);
+  const orderRef = useRef(null);
 
-  const handleOpenPanel = (order) => {
+  const handleOpenPanel = async (order) => {
     setSelectedOrder(order);
+    try {
+      const data = await fetchOrderDetails(order.id);
+      console.log("DATA", data);
+      setSelectedOrderDetails(data);
+    } catch (err) {
+      setSelectedOrderDetails(null);
+    }
   };
 
   const handleClosePanel = () => {
     setSelectedOrder(null);
+    setSelectedOrderDetails(null);
   };
 
   useEffect(() => {
@@ -32,12 +41,11 @@ export const OrderHistory = () => {
         handleClosePanel();
       }
     };
-
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [selectedOrder, handleClosePanel]);
+  }, [selectedOrder]);
 
   useEffect(() => {
     const loadOrders = async () => {
@@ -76,16 +84,12 @@ export const OrderHistory = () => {
               order.totalPriceV2.amount,
               order.totalPriceV2.currencyCode
             )})`;
-
             return (
               <div
                 key={order.id}
                 onClick={() => handleOpenPanel(order)}
-                className="bg-cream text-charcoal rounded-sm shadow-md p-4
-                           hover:cursor-pointer flex gap-4 items-center
-                           max-w-[800px] mx-auto text-base md:text-[20px]"
+                className="bg-cream text-charcoal rounded-sm shadow-md p-4 hover:cursor-pointer flex gap-4 items-center max-w-[800px] mx-auto text-base md:text-[20px]"
               >
-                {/* Thumbnail */}
                 <div
                   className="w-[75px] h-[75px] rounded-xl flex items-center justify-center"
                   style={{ backgroundColor: "rgba(217, 217, 217, 1)" }}
@@ -101,15 +105,12 @@ export const OrderHistory = () => {
                     <span className="text-sm">No Image</span>
                   )}
                 </div>
-
-                {/* Order info */}
                 <div className="grid grid-cols-3 gap-2 md:gap-4 w-full">
                   <div className="font-bold">Order {order.name}</div>
                   <div className="text-center">
                     {itemCount} Item{itemCount > 1 ? "s" : ""}
                   </div>
                   <div className="text-right">{dateStr}</div>
-
                   <div>{totalStr}</div>
                   <div
                     className={`text-center font-bold ${
@@ -132,41 +133,21 @@ export const OrderHistory = () => {
             <div
               ref={orderRef}
               onClick={(e) => e.stopPropagation()}
-              className={`
-                relative w-full max-w-6xl bg-cream text-charcoal
-                overflow-auto
-
-                /*
-                  Bottom sheet on mobile:
-                  - absolute bottom-0 left-0 right-0
-                  - rounded top corners only
-                  - fixed height (80vh) with vertical scroll
-                */
+              className="
+                relative w-full max-w-6xl bg-cream text-charcoal overflow-auto
                 absolute bottom-0 left-0 right-0
                 rounded-t-2xl
                 h-[80vh]
                 p-6
-
-                /*
-                  Desktop (md+):
-                  - remove absolute positioning (use static)
-                  - full rounding
-                  - center with a transform shift (since parent is flex items-center)
-                */
                 md:static
                 md:rounded-lg
                 md:h-auto
                 md:transform md:-translate-y-2
                 md:top-1/2
                 md:p-8
-
-                /*
-                  Maintain your grid layout for large screens
-                  1 column on mobile, 3 columns on desktop
-                */
                 grid grid-cols-1 md:grid-cols-[250px_auto_250px] gap-8
                 min-h-[400px]
-              `}
+              "
             >
               <button
                 onClick={handleClosePanel}
@@ -174,10 +155,7 @@ export const OrderHistory = () => {
               >
                 <IoClose size={24} />
               </button>
-
-              {/* LEFT COLUMN */}
               <div className="flex flex-col space-y-6">
-                {/* Order # and Date */}
                 <div>
                   <h2 className="text-xl font-bold">
                     Order {selectedOrder.name}
@@ -187,9 +165,6 @@ export const OrderHistory = () => {
                     {new Date(selectedOrder.processedAt).toLocaleDateString()}
                   </p>
                 </div>
-
-                {/* Shipping */}
-                {/* TODO */}
                 <div>
                   <h3 className="font-semibold">Shipping</h3>
                   <p className="text-sm">
@@ -197,8 +172,6 @@ export const OrderHistory = () => {
                       "Expedited Domestic ($2.99)"}
                   </p>
                 </div>
-
-                {/* Address */}
                 <div>
                   <h3 className="font-semibold">Address</h3>
                   {selectedOrder.shippingAddress ? (
@@ -216,16 +189,28 @@ export const OrderHistory = () => {
                     <p className="text-sm">No address provided.</p>
                   )}
                 </div>
-
-                {/* Payment (placeholder) */}
                 <div>
                   <h3 className="font-semibold">Payment</h3>
-                  <p className="text-sm">Coming</p>
-                  <p className="text-sm">Soon</p>
+                  {selectedOrderDetails?.payment_details ? (
+                    <>
+                      <p className="text-sm">
+                        {
+                          selectedOrderDetails.payment_details
+                            .credit_card_company
+                        }
+                      </p>
+                      <p className="text-sm">
+                        {
+                          selectedOrderDetails.payment_details
+                            .credit_card_number
+                        }
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-sm">No payment details available.</p>
+                  )}
                 </div>
               </div>
-
-              {/* CENTER COLUMN */}
               <div className="flex flex-col items-center mt-8 md:mt-0">
                 <div className="mb-2">
                   <img
@@ -234,8 +219,6 @@ export const OrderHistory = () => {
                     className="w-[25px] h-[25px] mx-auto"
                   />
                 </div>
-
-                {/* Item count text */}
                 <div className="mb-4 text-center text-sm font-semibold">
                   ({selectedOrder.lineItems.edges.length}{" "}
                   {selectedOrder.lineItems.edges.length === 1
@@ -243,8 +226,6 @@ export const OrderHistory = () => {
                     : "Items"}
                   )
                 </div>
-
-                {/* Items list */}
                 <div className="w-full flex flex-col gap-4">
                   {selectedOrder.lineItems.edges.map(({ node }) => (
                     <OrderHistoryCard
@@ -262,17 +243,12 @@ export const OrderHistory = () => {
                   ))}
                 </div>
               </div>
-
-              {/* RIGHT COLUMN */}
               <div className="flex flex-col justify-between mt-8 md:mt-0">
-                {/* Status */}
                 <div className="mt-2 text-right">
                   <p className="uppercase font-bold text-red-600">
                     Status: {selectedOrder.fulfillmentStatus || "IN PROGRESS"}
                   </p>
                 </div>
-
-                {/* Pricing (original vs discounted) */}
                 <PricingSection selectedOrder={selectedOrder} />
               </div>
             </div>
@@ -300,14 +276,9 @@ const OrderHistoryCard = ({
   }
 
   return (
-    <div
-      className="w-full rounded-[10px] bg-cream flex p-5 min-h-[160px]
-                 flex-col md:flex-row gap-4 md:gap-6"
-    >
-      {/* Image */}
+    <div className="w-full rounded-[10px] bg-cream flex p-5 min-h-[160px] flex-col md:flex-row gap-4 md:gap-6">
       <div
-        className="w-[120px] h-[120px] rounded flex items-center justify-center
-                   flex-shrink-0 mx-auto md:mx-0"
+        className="w-[120px] h-[120px] rounded flex items-center justify-center flex-shrink-0 mx-auto md:mx-0"
         style={{ backgroundColor: "rgba(217, 217, 217, 1)" }}
       >
         {imageUrl ? (
@@ -323,8 +294,6 @@ const OrderHistoryCard = ({
           <div className="text-rose text-sm font-medium">No Image</div>
         )}
       </div>
-
-      {/* Text block */}
       <div className="flex-1 flex flex-col justify-between gap-2 md:gap-6">
         <div>
           <h2 className="text-charcoal text-base">
@@ -333,28 +302,23 @@ const OrderHistoryCard = ({
         </div>
         <div className="text-charcoal text-base">{price}</div>
       </div>
-
-      {/* Right side: pack info + quantity */}
       <div className="flex flex-col justify-between items-end gap-2">
         <p className="text-charcoal text-base">{packNumber}/PK</p>
-        <div
-          className="w-[100px] h-[35px] border border-black
-                     rounded-full flex items-center justify-center
-                     text-sm font-semibold text-charcoal"
-        >
+        <div className="w-[100px] h-[35px] border border-black rounded-full flex items-center justify-center text-sm font-semibold text-charcoal">
           {quantity}
         </div>
       </div>
     </div>
   );
 };
+
 const FallbackImage = ({ src, alt, fallback, className = "" }) => {
   const [loaded, setLoaded] = React.useState(false);
   const [errored, setErrored] = React.useState(false);
 
   return (
     <>
-      {!loaded && !errored && (fallback || null)}
+      {!loaded && !errored && fallback}
       <img
         src={src}
         alt={alt}
@@ -368,7 +332,6 @@ const FallbackImage = ({ src, alt, fallback, className = "" }) => {
 
 const PricingSection = ({ selectedOrder }) => {
   if (!selectedOrder) return null;
-
   const originalPrice = selectedOrder.lineItems.edges.reduce(
     (acc, itemEdge) => {
       const itemPrice = parseFloat(itemEdge.node.variant.price.amount) || 0;
@@ -377,12 +340,9 @@ const PricingSection = ({ selectedOrder }) => {
     },
     0
   );
-
   const discountedPrice = parseFloat(selectedOrder.totalPriceV2.amount) || 0;
   const currencyCode = selectedOrder.totalPriceV2.currencyCode;
-
-  const hasDiscount =
-    selectedOrder.discountApplications?.edges?.length > 0 || false;
+  const hasDiscount = selectedOrder.discountApplications?.edges?.length > 0;
   const discountAppEdge =
     selectedOrder.discountApplications?.edges?.[0] || null;
   const discountCode = discountAppEdge?.node?.code || null;
@@ -405,7 +365,6 @@ const PricingSection = ({ selectedOrder }) => {
             {formatPrice(discountedPrice, currencyCode)}
           </span>
         )}
-
         {discountCode && (
           <p className="text-sm font-normal">
             Discount Applied:{" "}
