@@ -86,7 +86,15 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      {isDesktop ? <Navbar /> : <MobileNavbar />}
+      {isDesktop ? (
+        <div className="mt-[81px]">
+          <Navbar />
+        </div>
+      ) : (
+        <div className="mt-[70px]">
+          <MobileNavbar />
+        </div>
+      )}
       {children}
       {location.pathname !== "/playground" && (
         <div
