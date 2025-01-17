@@ -4,18 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useCustomer } from "../../context/CustomerContext";
 import { MobileCart } from "./MobileCart";
+import { MobileLogin } from "./MobileLogin";
 
 export const MobileNavbar = () => {
   const navigate = useNavigate();
   const { isOpen, toggleCart } = useCart();
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { customer } = useCustomer();
+
+  const toggleLogin = () => {
+    setIsLoginOpen(!isLoginOpen);
+  };
 
   const profileOnClick = () => {
     if (customer) {
       navigate("/profile");
     } else {
-      // TODO: Handle login or signup flow
+      toggleLogin();
     }
   };
 
@@ -96,6 +102,7 @@ export const MobileNavbar = () => {
         )}
       </nav>
       <MobileCart isModalOpen={isOpen} toggleModal={toggleCart} />
+      <MobileLogin isModalOpen={isLoginOpen} toggleModal={toggleLogin} />
     </>
   );
 };

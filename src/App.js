@@ -13,6 +13,7 @@ import {
 } from "@pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import React, { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import {
   Navigate,
   Route,
@@ -81,19 +82,11 @@ function App() {
 
 const Layout = ({ children }) => {
   const location = useLocation();
+  const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   return (
     <>
-      {location.pathname !== "/playground" && (
-        <>
-          <div className="hidden lg:block mt-[81px]">
-            <Navbar />
-          </div>
-          <div className="lg:hidden mt-[70px]">
-            <MobileNavbar />
-          </div>
-        </>
-      )}
+      {isDesktop ? <Navbar /> : <MobileNavbar />}
       {children}
       {location.pathname !== "/playground" && (
         <div
