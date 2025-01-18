@@ -5,12 +5,13 @@ export const CoreButton = ({
   onClick,
   variant = "dark",
   borderColor = "border-charcoal",
+  disabled = false,
 }) => {
   const themedStyles = `${
     variant === "dark"
       ? `bg-charcoal text-cream font-medium text-2xl hover:bg-cream hover:text-charcoal ${borderColor}`
       : `bg-cream text-charcoal font-medium text-2xl hover:bg-charcoal hover:text-cream ${borderColor}`
-  }`;
+  } ${disabled && "opacity-50 cursor-not-allowed"}`;
 
   return (
     <button
