@@ -19,7 +19,6 @@ export const OrderHistory = () => {
     setSelectedOrder(order);
     try {
       const data = await fetchOrderDetails(order.id);
-      console.log("DATA", data);
       setSelectedOrderDetails(data);
     } catch (err) {
       setSelectedOrderDetails(null);
