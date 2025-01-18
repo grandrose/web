@@ -5,7 +5,7 @@ import { IoClose, IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import GoogleIcon from "../../assets/icons/google.svg";
 import { useCustomer } from "../../context/CustomerContext";
-import { CoreButton } from "../theme";
+import { CoreButton, Loader } from "@theme";
 
 export const Login = ({ isModalOpen, toggleModal }) => {
   const navigate = useNavigate();
@@ -116,6 +116,11 @@ export const Login = ({ isModalOpen, toggleModal }) => {
             ref={loginRef}
             className="relative bg-cream text-charcoal rounded-lg w-full max-w-lg p-8"
           >
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black bg-opacity-50 z-50">
+                <Loader />
+              </div>
+            )}
             <button
               onClick={toggleModal}
               className="absolute top-4 right-4 text-charcoal"
