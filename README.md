@@ -1,6 +1,6 @@
 # Grand Rose - Website Repository
 
-###### _`Last Updated: 12/10/24`_
+###### _`Last Updated: 01/19/25`_
 
 Welcome to the Grand Rose web repository! This is the codebase for the **Grand Rose** website, a React-based shop powered by Shopify's API.
 
@@ -10,8 +10,8 @@ Welcome to the Grand Rose web repository! This is the codebase for the **Grand R
 
 ## 🗈 Version
 
-Latest: **`v0.1(beta)`**<br>
-Next: **`v0.2(beta - backend)`**
+Latest: **`v0.2(beta)`**<br>
+Next: **`v0.3(beta - optimizations)`**
 
 ---
 
@@ -22,6 +22,7 @@ Next: **`v0.2(beta - backend)`**
 3. **About**: Learn about the Grand Rose story and values.
 4. **Store Locator**: Find nearby retailers carrying Grand Rose products.
 5. **Member Page (Profile)**: Personalized member experiences, including account and order details.
+6. **Policies & Documents**: View all Grand Rose policies(TOS, return, etc) & documents.
 
 ---
 
@@ -78,6 +79,7 @@ Access the site at `http://localhost:3000`.
 
 ```graphql
 grand-rose-web/
+├── api/                  # All backend APIs
 ├── public/               # Static assets
 ├── src/
 │   ├── assets/           # Images, icons, and other media
@@ -98,12 +100,12 @@ grand-rose-web/
 
 ###### _(Listed features are not final and version features are subject to change)_
 
-- **v0.2(beta) - New Features & Improvements**
+- **v0.3(beta) - New Features & Improvements**
 
-  - Backend deployment for customer and admin API.
-  - Member page with orders, history and customer details.
-  - Mobile opimizations for cart and login.
-  - General bug fixes
+  - Subscriptions page.
+  - Mobile opimizations.
+  - Performance optimizations.
+  - General bug fixes.
 
 - **v1.0.0 - Initial Public Release**
 
