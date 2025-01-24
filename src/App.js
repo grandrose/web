@@ -1,5 +1,10 @@
 import { Footer, MobileNavbar, Navbar } from "@components";
-import { CartProvider, CustomerProvider, useCustomer } from "@context";
+import {
+  CartProvider,
+  CustomerProvider,
+  ThemeProvider,
+  useCustomer,
+} from "@context";
 import {
   About,
   ComingSoon,
@@ -49,33 +54,35 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <CustomerProvider>
-        <CartProvider>
-          <Router>
-            <ScrollToTop />
-            <Layout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/locate" element={<ComingSoon />} />
-                <Route path="/about" element={<About />} />
-                <Route
-                  path="/profile"
-                  element={
-                    <ProtectedRoute>
-                      <Customer />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/policies" element={<Policies />} />
-                <Route path="/documents" element={<Documents />} />
-                <Route path="/playground" element={<Playground />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Layout>
-          </Router>
-        </CartProvider>
-      </CustomerProvider>
+      <Router>
+        <ThemeProvider>
+          <CustomerProvider>
+            <CartProvider>
+              <ScrollToTop />
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/shop" element={<Shop />} />
+                  <Route path="/locate" element={<ComingSoon />} />
+                  <Route path="/about" element={<About />} />
+                  <Route
+                    path="/profile"
+                    element={
+                      <ProtectedRoute>
+                        <Customer />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/policies" element={<Policies />} />
+                  <Route path="/documents" element={<Documents />} />
+                  <Route path="/playground" element={<Playground />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Layout>
+            </CartProvider>
+          </CustomerProvider>
+        </ThemeProvider>
+      </Router>
     </GoogleOAuthProvider>
   );
 }

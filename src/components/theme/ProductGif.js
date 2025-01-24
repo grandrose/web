@@ -1,4 +1,5 @@
 import React from "react";
+import { useTheme } from "@context/ThemeContext";
 
 export const ProductGif = ({
   src,
@@ -6,12 +7,23 @@ export const ProductGif = ({
   overlayText = "",
   className = "",
 }) => {
+  const { themeName } = useTheme();
+
+  const backgroundColor =
+    themeName === "blossom"
+      ? "rgba(0, 0, 0, 0.08)"
+      : "rgba(248, 241, 241, 0.08)";
+
   const renderTemplate = () => (
     <div
-      className="w-full max-w-[500px] h-[625px] max-h-screen flex items-center justify-center text-gray-800 rounded-lg"
-      style={{ backgroundColor: "rgba(248, 241, 241, 0.08)" }}
+      className={`
+        w-full max-w-[500px] h-[625px] max-h-screen
+        flex items-center justify-center rounded-lg
+        ${themeName === "blossom" ? "text-charcoal" : "text-cream"}
+      `}
+      style={{ backgroundColor }}
     >
-      <p className="text-lg font-semibold text-center px-4 text-cream">
+      <p className="text-lg font-semibold text-center px-4">
         Product Preview Coming Soon
       </p>
     </div>
@@ -19,9 +31,14 @@ export const ProductGif = ({
 
   return (
     <div
-      className={`relative w-full max-w-[500px] h-[625px] max-h-screen overflow-hidden flex items-center justify-center ${className}`}
+      className={`
+        relative w-full max-w-[500px] h-[625px] max-h-screen
+        overflow-hidden flex items-center justify-center
+        ${className}
+      `}
     >
       {!src && renderTemplate()}
+
       {src && (
         <img
           src={src}
@@ -32,7 +49,7 @@ export const ProductGif = ({
 
       {overlayText && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-xl text-white font-bold text-center bg-black/50 px-3 py-2 rounded">
+          <p className="text-xl font-bold text-center bg-black/50 px-3 py-2 rounded text-white">
             {overlayText}
           </p>
         </div>

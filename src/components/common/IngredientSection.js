@@ -1,3 +1,4 @@
+import { useTheme } from "@context/ThemeContext";
 import {
   b12,
   cbg,
@@ -11,52 +12,28 @@ import {
 import GRIconGarnet from "../../assets/icons/GR-logo-garnet.png";
 
 export const IngredientSection = ({ rose = false }) => {
+  const { theme } = useTheme();
+
   const ingredients = [
     {
       name: "plant protein",
       icon: plantProtein,
       boldPart: ["plant", "protein"],
     },
-    {
-      name: "creatine",
-      icon: creatine,
-      boldPart: ["creatine"],
-    },
-    {
-      name: "turmeric",
-      icon: turmeric,
-      boldPart: null,
-    },
-    {
-      name: "vitamin b12",
-      icon: b12,
-      boldPart: null,
-    },
-    {
-      name: "vitamin c",
-      icon: vitaminC,
-      boldPart: null,
-    },
-    {
-      name: "vitamin d3",
-      icon: d3,
-      boldPart: null,
-    },
-    {
-      name: "2mg thc",
-      icon: thc,
-      boldPart: ["thc"],
-    },
+    { name: "creatine", icon: creatine, boldPart: ["creatine"] },
+    { name: "turmeric", icon: turmeric, boldPart: null },
+    { name: "vitamin b12", icon: b12, boldPart: null },
+    { name: "vitamin c", icon: vitaminC, boldPart: null },
+    { name: "vitamin d3", icon: d3, boldPart: null },
+    { name: "2mg thc", icon: thc, boldPart: ["thc"] },
     { name: null, icon: rose ? GRIconGarnet : null, boldPart: null },
-    {
-      name: "40mg cbg",
-      icon: cbg,
-      boldPart: ["cbg"],
-    },
+    { name: "40mg cbg", icon: cbg, boldPart: ["cbg"] },
   ];
 
   return (
-    <section className="text-cream pt-24 pb-32 px-6 sm:px-12 lg:px-32 w-full">
+    <section
+      className={`${theme.bodyClasses} pt-24 pb-32 px-6 sm:px-12 lg:px-32 w-full`}
+    >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8 text-center">
         {ingredients.map(({ name, icon, boldPart }, index) => (
           <div

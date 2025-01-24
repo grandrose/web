@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTheme } from "@context/ThemeContext";
 
 export const EmailSubmission = ({
   placeholder = "Enter your email",
@@ -8,7 +9,42 @@ export const EmailSubmission = ({
   background = "dark",
   buttonTheme = "dark",
 }) => {
+  const { themeName } = useTheme();
   const [statusMessage, setStatusMessage] = useState(null);
+
+  const backgroundCombos = {
+    dark: {
+      default: "bg-transparent text-cream placeholder-gray-500 border-cream",
+      blossom:
+        "bg-transparent text-charcoal placeholder-gray-500 border-charcoal",
+    },
+    light: {
+      default: "bg-cream text-charcoal placeholder-gray-400 border-charcoal",
+      blossom: "bg-cream text-cream placeholder-gray-400 border-cream",
+    },
+  };
+
+  const buttonCombos = {
+    dark: {
+      default:
+        "bg-transparent border-2 border-cream text-cream hover:bg-cream hover:text-charcoal disabled:hover:bg-transparent disabled:hover:text-cream",
+      blossom:
+        "bg-transparent border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-cream disabled:hover:bg-transparent disabled:hover:text-charcoal",
+    },
+    light: {
+      default:
+        "bg-cream border border-charcoal text-charcoal hover:bg-charcoal hover:text-cream",
+      blossom:
+        "bg-cream border border-cream text-cream hover:bg-cream hover:text-charcoal",
+    },
+  };
+
+  // const inputStyless = backgroundCombos[background][themeName];
+  const buttonStyles = buttonCombos[buttonTheme][themeName];
+  const inputStyles =
+    background === "dark"
+      ? "bg-transparent text-cream placeholder-gray-500 border-cream"
+      : "bg-cream text-charcoal placeholder-gray-400 border-charcoal";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +60,7 @@ export const EmailSubmission = ({
 
       if (response.ok) {
         setStatusMessage("Successfully signed up for marketing!");
+        onSubmit && onSubmit(email);
       } else {
         const errorData = await response.json();
         setStatusMessage(errorData.error || "An error occurred.");
@@ -32,16 +69,6 @@ export const EmailSubmission = ({
       setStatusMessage("Failed to sign up. Please try again.");
     }
   };
-
-  const inputStyles =
-    background === "dark"
-      ? "bg-transparent text-cream placeholder-gray-500 border-cream"
-      : "bg-cream text-charcoal placeholder-gray-400 border-charcoal";
-
-  const buttonStyles =
-    buttonTheme === "dark"
-      ? "bg-transparent border-2 border-cream text-cream hover:bg-cream hover:text-charcoal disabled:hover:bg-transparent disabled:hover:text-cream"
-      : "bg-cream border border-charcoal text-charcoal hover:bg-charcoal hover:text-cream";
 
   return (
     <div>
@@ -53,7 +80,7 @@ export const EmailSubmission = ({
           type="email"
           name="email"
           placeholder={placeholder}
-          className={`px-4 py-1 rounded-full border focus:outline-none ${inputStyles}`}
+          className={`px-4 py-1 rounded-full border-2 focus:outline-none ${inputStyles}`}
           required
         />
         {showButton && (

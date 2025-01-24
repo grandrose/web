@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import defaultCans from "@assets/temp/cans-small.png";
 import { blossomGradient, primaryGradient } from "@assets";
+import { useTheme } from "../../context";
 
 export const Hero = ({
   variant = "dark",
@@ -14,11 +15,12 @@ export const Hero = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
+  const { theme } = useTheme()
   const images = [defaultCans, defaultCans, defaultCans];
 
   const textBackground = variant === "dark" ? primaryGradient : blossomGradient;
   const textColor = variant === "dark" ? "text-cream" : "text-charcoal";
-  const imageBgColor = "bg-charcoal";
+  const imageBgColor = theme.bodyClasses;
 
   useEffect(() => {
     const interval = setInterval(() => {
